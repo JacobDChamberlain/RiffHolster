@@ -1,11 +1,10 @@
 import React from 'react';
-import Login from '../Auth/Login/Login';
+import Auth from '../Auth/Auth';
 
 function App() {
   return (
     <>
-      hi
-      <Login />
+      <Auth />
     </>
   );
 }

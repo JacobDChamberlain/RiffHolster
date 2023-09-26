@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Login from '../Auth/Login/Login';
 import Signup from '../Auth/Signup/Signup';
+import './Auth.css'
 
 
 export default function Auth() {

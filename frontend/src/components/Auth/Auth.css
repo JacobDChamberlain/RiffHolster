@@ -1,0 +1,89 @@
+.auth-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-signup {
+    border: none;
+    border-radius: 40px;
+    background-color: rgb(123, 190, 235);
+    color: white;
+    font-size: 15px;
+    margin: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.toggle-signup:hover {
+    background-color: rgb(0, 190, 235);
+}
+
+
+
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aliceblue;
+    border-radius: 20px;
+    width: 300px;
+    padding-bottom: 20px;
+    height: 375px;
+    color: darkcyan;
+}
+
+.login-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+
+
+.signup-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aliceblue;
+    border-radius: 20px;
+    width: 300px;
+    padding-bottom: 20px;
+    height: 375px;
+    color: darkcyan;
+}
+
+.signup-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+
+
+input {
+    border-style: none;
+    border-radius: 40px;
+    height: 30px;
+    padding-left: 10px;
+}
+
+form > button {
+    border: none;
+    border-radius: 40px;
+    background-color: rgb(123, 190, 235);
+    color: white;
+    font-size: 15px;
+    margin: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+form > button:hover {
+    background-color: rgb(0, 190, 235);
+}

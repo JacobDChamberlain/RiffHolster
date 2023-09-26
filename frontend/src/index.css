@@ -1,0 +1,18 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    font-family: 'Courier New', Courier, monospace;
+}
+/*
+button {
+    font-family: 'Courier New', Courier, monospace;
+} */

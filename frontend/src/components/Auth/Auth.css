@@ -18,7 +18,7 @@
     cursor: pointer;
 }
 .toggle-signup:hover {
-    background-color: rgb(0, 190, 235);
+    background-color: rgb(40, 154, 231);
 }
 
 
@@ -43,6 +43,20 @@
     justify-content: space-evenly;
 }
 
+.login-button {
+    border: none;
+    border-radius: 40px;
+    background-color: rgb(123, 190, 235);
+    color: white;
+    font-size: 15px;
+    margin: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.login-button:hover {
+    background-color: rgb(40, 154, 231);
+}
+
 
 
 .signup-wrapper {
@@ -65,16 +79,7 @@
     justify-content: space-evenly;
 }
 
-
-
-input {
-    border-style: none;
-    border-radius: 40px;
-    height: 30px;
-    padding-left: 10px;
-}
-
-form > button {
+.signup-button {
     border: none;
     border-radius: 40px;
     background-color: rgb(123, 190, 235);
@@ -84,6 +89,6 @@ form > button {
     padding: 5px 10px;
     cursor: pointer;
 }
-form > button:hover {
-    background-color: rgb(0, 190, 235);
+.signup-button:hover {
+    background-color: rgb(40, 154, 231);
 }

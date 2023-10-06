@@ -1,6 +1,6 @@
 const express = require('express');
 const userController = require( '../controllers/userController' );
-const { getAllUsers, getUserById, signup, login, logout } = userController;
+const { getAllUsers, getUserById, signup, login, logout, updateUser } = userController;
 // const { getAllUsers, getUserById, signup, login, logout } = require( '../controllers/userController.js' );
 
 
@@ -14,6 +14,8 @@ router.post( '/signup', signup );
 
 router.post( '/login', login );
 
-router.post( '/logout', logout );
+// router.post( '/logout', logout );
+
+router.put( '/:userId', updateUser );
 
 module.exports = router;

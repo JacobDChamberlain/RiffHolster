@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "riff_buddy",
+    "password": "guitarsforever",
+    "database": "riff_holster",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "riff_buddy",
+    "password": "guitarsforever",
+    "database": "riff_holster",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "riff_buddy",
+    "password": "guitarsforever",
+    "database": "riff_holster",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

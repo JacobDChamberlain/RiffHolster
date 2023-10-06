@@ -1,7 +1,7 @@
 const express = require('express');
 const sequelize = require('sequelize');
 const dotenv = require('dotenv').config();
-const cookierParser = reqiure('cookie-parser');
+const cookierParser = require('cookie-parser');
 
 
 const PORT = process.env.PORT || 8080;

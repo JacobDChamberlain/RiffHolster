@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 export async function loginUser( credentials ) {
-    return fetch('http://localhost:8080/api/users/login', {
+    return fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -10,7 +10,7 @@ export async function loginUser( credentials ) {
         body: JSON.stringify( credentials )
     })
         .then( data => data.json() )
-        .catch( err => console.error( err ) ); //* do something with the data instead of just console error
+        .catch( err => console.error( err ) ); //? do something with the error instead of just log to console
 }
 
 
@@ -24,6 +24,9 @@ export default function Login() {
             email,
             password
         });
+        console.log( `---loginResponse:---` )
+        console.log( `tokenData: ${ loginResponse.tokenData }`);
+        console.log( `userData: ${ loginResponse.userData }`);
         // Error handling
         // + set token or cookie * ?
         // redirect to a different page?
@@ -41,8 +44,8 @@ export default function Login() {
                     <p>Password</p>
                     <input type='password' onChange={e => setPassword(e.target.value)} />
                 </label>
+                <button className='login-button' type='submit'>Log In</button>
             </form>
-            <button className='login-button' type='submit'>Log In</button>
         </div>
     )
 }

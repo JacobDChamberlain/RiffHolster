@@ -9,7 +9,7 @@ async function signupUser( credentials ) {
         },
         body: JSON.stringify( credentials )
     })
-        .then( data => {console.log( data )} )
+        .then( data => data.json() )
         .catch( err => console.error( err )); //* do something with the data instead of just console error
 }
 
@@ -26,7 +26,9 @@ export default function Signup() {
             email,
             password
         });
-        console.log("signupResponse--> ", signupResponse)
+        console.log( `---signupResponse:---` )
+        console.log( `tokenData: ${ signupResponse.tokenData }`);
+        console.log( `userData: ${ signupResponse.userData }`);
         // Error handling
         // + set token or cookie * ?
         // redirect to a different page?

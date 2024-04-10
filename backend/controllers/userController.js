@@ -34,14 +34,15 @@ const signup = async ( req, res ) => {
             };
 
             // possibly send this in response to place user info in localstorage?
-            // const userAndTokenData = {
-            //     tokenData: token,
-            //     userData
-            // };
-            // console.log( userAndTokenData );
+            const userAndTokenData = {
+                tokenData: token,
+                userData
+            };
+            console.log( userAndTokenData );
 
-            return res.status( 200 ).send( token );
+            return res.status( 200 ).send( userAndTokenData );
         } else {
+            console.log( `*** Error signing up: Failed to sign up ***`);
             return res.status( 409 ).send( 'Failed to sign up' );
         }
     } catch( err ) {

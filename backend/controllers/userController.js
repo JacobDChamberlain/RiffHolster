@@ -52,6 +52,7 @@ const signup = async ( req, res ) => {
 const login = async ( req, res ) => {
     try {
         const { email, password } = req.body;
+        console.log( 'login backend, email and password entered: ', email, password )
 
         const user = await User.findOne({
             where: {
@@ -87,10 +88,12 @@ const login = async ( req, res ) => {
                 return res.status( 200 ).send( token );
             } else {
                 const message = { 'PasswordError': 'Failed to log in. Wrong password.' };
+                console.log( `*** Error logging in: ${ message['PasswordError'] } ***`);
                 return res.status( 401 ).send( message );
             }
         } else {
             const message = { 'UserError': 'Failed to log in. Can\'t find User.' };
+            console.log( `*** Error logging in: ${ message['UserError'] } ***`);
             return res.status( 404 ).send( message );
         }
     } catch( err ) {

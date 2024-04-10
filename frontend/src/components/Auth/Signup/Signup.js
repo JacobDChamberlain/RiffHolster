@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 
 async function signupUser( credentials ) {
-    return fetch('http://localhost:8080/api/users/signup', {
+    return fetch('http://localhost:8080/users/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify( credentials )
     })
-        .then( data => data.json() )
+        .then( data => {console.log( data )} )
         .catch( err => console.error( err )); //* do something with the data instead of just console error
 }
 
@@ -26,6 +26,7 @@ export default function Signup() {
             email,
             password
         });
+        console.log("signupResponse--> ", signupResponse)
         // Error handling
         // + set token or cookie * ?
         // redirect to a different page?
@@ -47,8 +48,8 @@ export default function Signup() {
                     <p>Password</p>
                     <input type='password' onChange={ e => setPassword( e.target.value ) } />
                 </label>
+                <button className='signup-button' type='submit'>Sign Up</button>
             </form>
-            <button className='signup-button' type='submit'>Sign Up</button>
         </div>
     )
 }

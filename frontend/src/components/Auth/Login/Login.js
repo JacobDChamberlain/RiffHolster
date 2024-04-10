@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 
 export async function loginUser( credentials ) {
-    return fetch('http://localhost:8080/api/users/login', {
+    return fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify( credentials )
     })
-        .then( data => data.json() )
-        .catch( err => console.error( err ) ); //* do something with the data instead of just console error
-}
+        .then( data => {console.log( data )} ) //* data here is the token sent back from backend POST /users
+        .catch( err => console.error( err ) ); //* if we wanted to send back an object with user data and token, we could destructure it using data.json() here
+}       //? do something with the error instead of just log to console
 
 
 export default function Login() {
@@ -24,6 +24,7 @@ export default function Login() {
             email,
             password
         });
+        console.log("loginResponse--> ", loginResponse)
         // Error handling
         // + set token or cookie * ?
         // redirect to a different page?
@@ -41,8 +42,8 @@ export default function Login() {
                     <p>Password</p>
                     <input type='password' onChange={e => setPassword(e.target.value)} />
                 </label>
+                <button className='login-button' type='submit'>Log In</button>
             </form>
-            <button className='login-button' type='submit'>Log In</button>
         </div>
     )
 }

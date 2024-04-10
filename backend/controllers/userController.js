@@ -79,13 +79,13 @@ const login = async ( req, res ) => {
                     email: user.email
                 };
 
-                // const userAndTokenData = {
-                //     tokenData: token,
-                //     userData
-                // };
-                // console.log( userAndTokenData );
+                const userAndTokenData = {
+                    tokenData: token,
+                    userData
+                };
+                console.log( userAndTokenData );
 
-                return res.status( 200 ).send( token );
+                return res.status( 200 ).send( userAndTokenData );
             } else {
                 const message = { 'PasswordError': 'Failed to log in. Wrong password.' };
                 console.log( `*** Error logging in: ${ message['PasswordError'] } ***`);

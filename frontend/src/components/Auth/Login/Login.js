@@ -9,9 +9,9 @@ export async function loginUser( credentials ) {
         },
         body: JSON.stringify( credentials )
     })
-        .then( data => {console.log( data )} ) //* data here is the token sent back from backend POST /users
-        .catch( err => console.error( err ) ); //* if we wanted to send back an object with user data and token, we could destructure it using data.json() here
-}       //? do something with the error instead of just log to console
+        .then( data => data.json() )
+        .catch( err => console.error( err ) ); //? do something with the error instead of just log to console
+}
 
 
 export default function Login() {
@@ -24,7 +24,9 @@ export default function Login() {
             email,
             password
         });
-        console.log("loginResponse--> ", loginResponse)
+        console.log( `---loginResponse:---` )
+        console.log( `tokenData: ${ loginResponse.tokenData }`);
+        console.log( `userData: ${ loginResponse.userData }`);
         // Error handling
         // + set token or cookie * ?
         // redirect to a different page?

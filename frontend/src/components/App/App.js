@@ -10,7 +10,6 @@ function App() {
   const { token, setToken } = useToken();
 
   if ( !token ) {
-    // console.log( 'no token!!!')
     return <Auth setToken={ setToken } />
   }
 

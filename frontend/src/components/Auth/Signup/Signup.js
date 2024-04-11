@@ -26,7 +26,9 @@ export default function Signup({ setToken }) {
             email,
             password
         });
-        const token = signupResponse.tokenData;
+        const token = {
+            token: signupResponse.tokenData
+        };
         setToken( token );
         // Error handling
         // + set token or cookie * ?

@@ -25,7 +25,9 @@ export default function Login({ setToken }) {
             email,
             password
         });
-        const token = loginResponse.tokenData;
+        const token = {
+            token: loginResponse.tokenData
+        };
         setToken( token );
         // Error handling
         // + set token or cookie * ?

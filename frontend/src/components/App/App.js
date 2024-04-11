@@ -7,7 +7,7 @@ import useToken from './useToken';
 
 
 function App() {
-  const { token, setToken } = useToken();
+  const { token, setToken, removeToken } = useToken();
 
   if ( !token ) {
     return <Auth setToken={ setToken } />
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className='app-wrapper'>
-      <NavigationBar />
+      <NavigationBar removeToken={ removeToken } />
       <BrowserRouter>
         <Routes>
           <Route path='/' Component={ Home } />

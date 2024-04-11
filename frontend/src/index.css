@@ -13,6 +13,11 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 
+.app-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
 /* button {
     font-family: 'Courier New', Courier, monospace;
 } */

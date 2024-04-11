@@ -14,7 +14,7 @@ async function signupUser( credentials ) {
 }
 
 
-export default function Signup() {
+export default function Signup({ setToken }) {
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -26,9 +26,8 @@ export default function Signup() {
             email,
             password
         });
-        console.log( `---signupResponse:---` )
-        console.log( `tokenData: ${ signupResponse.tokenData }`);
-        console.log( `userData: ${ signupResponse.userData }`);
+        const token = signupResponse.tokenData;
+        setToken( token );
         // Error handling
         // + set token or cookie * ?
         // redirect to a different page?

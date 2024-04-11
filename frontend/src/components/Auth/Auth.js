@@ -4,7 +4,7 @@ import Signup from '../Auth/Signup/Signup';
 import './Auth.css'
 
 
-export default function Auth() {
+export default function Auth({ setToken }) {
     const [showSignup, setShowSignup] = useState(false);
     const toggleMessage = showSignup ? "Already have an account?" : "No account? Sign up here!";
 
@@ -17,8 +17,8 @@ export default function Auth() {
         <div className='auth-wrapper'>
             {
                 showSignup ?
-                <Signup /> :
-                <Login />
+                <Signup setToken={ setToken } /> :
+                <Login setToken={ setToken } />
             }
             <button className='toggle-signup' onClick={handleToggleSignup}>{toggleMessage}</button>
         </div>

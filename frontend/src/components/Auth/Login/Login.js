@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
 
 
 export async function loginUser( credentials ) {
@@ -14,7 +15,7 @@ export async function loginUser( credentials ) {
 }
 
 
-export default function Login() {
+export default function Login({ setToken }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -24,9 +25,8 @@ export default function Login() {
             email,
             password
         });
-        console.log( `---loginResponse:---` )
-        console.log( `tokenData: ${ loginResponse.tokenData }`);
-        console.log( `userData: ${ loginResponse.userData }`);
+        const token = loginResponse.tokenData;
+        setToken( token );
         // Error handling
         // + set token or cookie * ?
         // redirect to a different page?
@@ -49,3 +49,7 @@ export default function Login() {
         </div>
     )
 }
+
+// Login.propTypes = {
+//     setToken: PropTypes.func.isRequired
+// }

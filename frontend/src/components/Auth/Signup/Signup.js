@@ -14,7 +14,7 @@ async function signupUser( credentials ) {
 }
 
 
-export default function Signup({ setToken }) {
+export default function Signup({ setToken, setUser }) {
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -29,10 +29,10 @@ export default function Signup({ setToken }) {
         const token = {
             token: signupResponse.tokenData
         };
+        const user = signupResponse.userData;
         setToken( token );
+        setUser( user );
         // Error handling
-        // + set token or cookie * ?
-        // redirect to a different page?
     }
 
     return(

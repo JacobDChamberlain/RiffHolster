@@ -8,7 +8,6 @@ export default function NavigationBar({ removeToken, removeUser }) {
     return(
         <div className='navigation-bar-wrapper'>
             <h2>Welcome, User!</h2>
-            {/* only show logout button when user is logged in */}
             <Logout removeToken={ removeToken } removeUser={ removeUser } />
         </div>
     )

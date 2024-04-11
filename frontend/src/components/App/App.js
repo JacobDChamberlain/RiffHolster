@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className='app-wrapper'>
-      <NavigationBar removeToken={ removeToken } />
+      <NavigationBar removeToken={ removeToken } removeUser={ removeUser } />
       <BrowserRouter>
         <Routes>
           <Route path='/' Component={ Home } />

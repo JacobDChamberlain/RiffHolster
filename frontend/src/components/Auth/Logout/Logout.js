@@ -2,9 +2,10 @@ import React from 'react';
 import './Logout.css';
 
 
-export default function Logout({ removeToken }) {
+export default function Logout({ removeToken, removeUser }) {
     function logout() {
         removeToken();
+        removeUser();
     }
 
     return(

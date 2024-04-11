@@ -4,18 +4,20 @@ import Auth from '../Auth/Auth';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import Home from '../Home/Home';
 import useToken from './useToken';
+import useUser from './useUser';
 
 
 function App() {
   const { token, setToken, removeToken } = useToken();
+  const { user, setUser, removeUser } = useUser();
 
   if ( !token ) {
-    return <Auth setToken={ setToken } />
+    return <Auth setToken={ setToken } setUser={ setUser } />
   }
 
   return (
     <div className='app-wrapper'>
-      <NavigationBar removeToken={ removeToken } />
+      <NavigationBar removeToken={ removeToken } removeUser={ removeUser } />
       <BrowserRouter>
         <Routes>
           <Route path='/' Component={ Home } />

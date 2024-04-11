@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types'; <-- why do i need this?
 
 
 export async function loginUser( credentials ) {
@@ -15,7 +15,7 @@ export async function loginUser( credentials ) {
 }
 
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setUser }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -28,10 +28,10 @@ export default function Login({ setToken }) {
         const token = {
             token: loginResponse.tokenData
         };
+        const user = loginResponse.userData;
         setToken( token );
+        setUser( user );
         // Error handling
-        // + set token or cookie * ?
-        // redirect to a different page?
     }
 
     return(

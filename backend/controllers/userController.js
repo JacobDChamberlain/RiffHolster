@@ -47,7 +47,7 @@ const signup = async ( req, res ) => {
         // console.log( err );
         console.log( 'Error Name:', err.name );
 
-        const errorMessages = [];
+        const errorMessages = []; //* CLEAN THIS UP- find a standardized approach to handling errors & sending them back to frontend
 
         if ( err.errors && err.errors.length > 0 ) {
             for ( let e of err.errors ) {

@@ -33,12 +33,10 @@ const signup = async ( req, res ) => {
                 email: user.email
             };
 
-            // possibly send this in response to place user info in localstorage?
             const userAndTokenData = {
                 tokenData: token,
                 userData
             };
-            console.log( userAndTokenData );
 
             return res.status( 200 ).send( userAndTokenData );
         } else {
@@ -46,7 +44,25 @@ const signup = async ( req, res ) => {
             return res.status( 409 ).send( 'Failed to sign up' );
         }
     } catch( err ) {
-        console.log( err );
+        // console.log( err );
+        console.log( 'Error Name:', err.name );
+
+        const errorMessages = [];
+
+        if ( err.errors && err.errors.length > 0 ) {
+            for ( let e of err.errors ) {
+                console.log( 'Error Message:', e.message );
+                errorMessages.push( e.message );
+            }
+        }
+
+        if ( err.original ) {
+            console.log( 'Error Message: ', err.original );
+            errorMessages.push( err.original );
+        }
+
+
+        return errorMessages;
     }
 }
 

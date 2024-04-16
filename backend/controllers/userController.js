@@ -40,7 +40,7 @@ const signup = async ( req, res ) => {
 
             return res.status( 200 ).send( userAndTokenData );
         } else {
-            console.log( `*** Error signing up: Failed to sign up ***`);
+            console.log( `*** Error signing up: Failed to sign up ***`); //? consider sending errors back here?
             return res.status( 409 ).send( 'Failed to sign up' );
         }
     } catch( err ) {
@@ -51,7 +51,6 @@ const signup = async ( req, res ) => {
 
         if ( err.errors && err.errors.length > 0 ) {
             for ( let e of err.errors ) {
-                console.log( 'Error Message:', e.message );
                 errorMessages.push( e.message );
             }
         }
@@ -61,8 +60,11 @@ const signup = async ( req, res ) => {
             errorMessages.push( err.original );
         }
 
+        for ( let err of errorMessages ) {
+            console.log( err );
+        }
 
-        return errorMessages;
+        return { errors: errorMessages }; //? why does this not send to frontend? can we not return from catch block?
     }
 }
 

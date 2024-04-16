@@ -26,6 +26,11 @@ export default function Signup({ setToken, setUser }) {
             email,
             password
         });
+
+        if ( signupResponse !== undefined ) {
+            console.log( 'asdlfasdfadsf look at these errors----->', signupResponse );
+        }
+
         const token = {
             token: signupResponse.tokenData
         };

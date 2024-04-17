@@ -44,27 +44,26 @@ const signup = async ( req, res ) => {
             return res.status( 409 ).send( 'Failed to sign up' );
         }
     } catch( err ) {
-        // console.log( err );
-        console.log( 'Error Name:', err.name );
+        // console.log( '-------error name: ', err.name );
+        if ( err.name.includes( 'Sequelize' ) ) {
+            const errors = err.errors;
+            // const errorMessages = errors.map( e => {
+            //     let errObj = {};
+            //     console.log(e.type)
+            //     errObj[e] = e.message;
+            //     return errObj;
+            // } );
 
-        const errorMessages = []; //* CLEAN THIS UP- find a standardized approach to handling errors & sending them back to frontend
+            const errorMessages = {
+                messages: errors.map( e => e.message )
+            };
 
-        if ( err.errors && err.errors.length > 0 ) {
-            for ( let e of err.errors ) {
-                errorMessages.push( e.message );
-            }
+            return res.status(400).json( { errorMessages } );
+        } else {
+            return res.status(400).json( {
+                message: 'Error: Could not sign up user.'
+            } );
         }
-
-        if ( err.original ) {
-            console.log( 'Error Message: ', err.original );
-            errorMessages.push( err.original );
-        }
-
-        for ( let err of errorMessages ) {
-            console.log( err );
-        }
-
-        return { errors: errorMessages }; //? why does this not send to frontend? can we not return from catch block?
     }
 }
 

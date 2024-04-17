@@ -26,13 +26,20 @@ export default function Signup({ setToken, setUser }) {
             email,
             password
         });
+
+        // console.log( 'signupResponse: ', signupResponse );
+
+        if ( signupResponse.errorMessages !== undefined ) {
+            console.log( 'Frontend Error - Signup: ', signupResponse.errorMessages.messages );
+            return; //? Error handling - have a useEffect (?) to check if there are error messages present
+        }           //? If so, have them displayed on the signup form in red letters.
+
         const token = {
             token: signupResponse.tokenData
         };
         const user = signupResponse.userData;
         setToken( token );
         setUser( user );
-        // Error handling
     }
 
     return(

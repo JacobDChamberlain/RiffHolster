@@ -33,20 +33,37 @@ const signup = async ( req, res ) => {
                 email: user.email
             };
 
-            // possibly send this in response to place user info in localstorage?
             const userAndTokenData = {
                 tokenData: token,
                 userData
             };
-            console.log( userAndTokenData );
 
             return res.status( 200 ).send( userAndTokenData );
         } else {
-            console.log( `*** Error signing up: Failed to sign up ***`);
+            console.log( `*** Error signing up: Failed to sign up ***`); //? consider sending errors back here?
             return res.status( 409 ).send( 'Failed to sign up' );
         }
     } catch( err ) {
-        console.log( err );
+        // console.log( '-------error name: ', err.name );
+        if ( err.name.includes( 'Sequelize' ) ) {
+            const errors = err.errors;
+            // const errorMessages = errors.map( e => {
+            //     let errObj = {};
+            //     console.log(e.type)
+            //     errObj[e] = e.message;
+            //     return errObj;
+            // } );
+
+            const errorMessages = {
+                messages: errors.map( e => e.message )
+            };
+
+            return res.status(400).json( { errorMessages } );
+        } else {
+            return res.status(400).json( {
+                message: 'Error: Could not sign up user.'
+            } );
+        }
     }
 }
 

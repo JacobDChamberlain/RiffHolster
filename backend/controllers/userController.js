@@ -6,8 +6,17 @@ const db = require('../models');
 const User = db.User; // change to Users if using line 43 of 'models/index.js'
 
 const signup = async ( req, res ) => {
+    const errorMessages = {
+        messages: []
+    };
+
     try {
         const { username, email, password } = req.body;
+        if ( !username || !username.length ) errorMessages.messages.push( "Username cannot be blank" );
+        if ( !email || !email.length ) errorMessages.messages.push( "Email cannot be blank" );
+        if ( !password || !password.length ) errorMessages.messages.push( "Password cannot be blank" );
+        if ( errorMessages.messages.length ) return res.status( 400 ).json( errorMessages );
+
         const data = {
             username,
             email,
@@ -37,33 +46,38 @@ const signup = async ( req, res ) => {
 
             return res.status( 200 ).send( userAndTokenData );
         } else {
-            console.log( `*** Error signing up: Failed to sign up ***`); //? consider sending errors back here?
-            return res.status( 409 ).send( 'Failed to sign up' );
+            const message = '*** Error signing up: Failed to sign up ***';
+            console.log( message );
+            errorMessages.messages.push( message );
+
+            return res.status( 409 ).json( errorMessages );
         }
     } catch( err ) {
-        // console.log( '-------error name: ', err.name );
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            // console.log( 'Error-----> ', err );
-            // console.log( 'errors----------> ', errors );
+            errorMessages.messages = errors.map( e => e.message );
 
-            const errorMessages = {
-                messages: errors.map( e => e.message )
-            };
-
-
-            return res.status(400).json( { errorMessages } );
+            return res.status(400).json( errorMessages );
         } else {
-            return res.status(400).json( {
-                message: 'Error: Could not sign up user.'
-            } );
+            const message = 'Error: Could not sign up user.';
+            errorMessages.messages.push( message );
+
+            return res.status(400).json( errorMessages );
         }
     }
 }
 
 const login = async ( req, res ) => {
+    const errorMessages = {
+        messages: []
+    };
+
     try {
         const { email, password } = req.body;
+        if ( !email || !email.length ) errorMessages.messages.push( "Email cannot be blank" );
+        if ( !password || !password.length ) errorMessages.messages.push( "Password cannot be blank" );
+        if ( errorMessages.messages.length ) return res.status( 400 ).json( errorMessages );
+
         console.log( 'login backend, email and password entered: ', email, password )
 
         const user = await User.findOne({
@@ -99,32 +113,30 @@ const login = async ( req, res ) => {
 
                 return res.status( 200 ).send( userAndTokenData );
             } else {
-                const message = { 'PasswordError': 'Failed to log in. Wrong password.' };
-                console.log( `*** Error logging in: ${ message['PasswordError'] } ***`);
-                return res.status( 401 ).send( message );
+                const message = 'Failed to log in. Wrong password.';
+                console.log( `*** Error logging in: ${ message } ***`);
+                errorMessages.messages.push( message );
+
+                return res.status( 401 ).json( errorMessages );
             }
         } else {
-            const message = { 'UserError': 'Failed to log in. Can\'t find User.' };
-            console.log( `*** Error logging in: ${ message['UserError'] } ***`);
-            return res.status( 404 ).send( message );
+            const message = 'Failed to log in. Can\'t find User with that Email.';
+            console.log( `*** Error logging in: ${ message } ***`);
+            errorMessages.messages.push( message );
+
+            return res.status( 404 ).json( errorMessages );
         }
     } catch( err ) {
-        // console.log( '-------error name: ', err.name );
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            // console.log( 'Error-----> ', err );
-            // console.log( 'errors----------> ', errors );
+            errorMessages.messages = errors.map( e => e.message );
 
-            const errorMessages = {
-                messages: errors.map( e => e.message )
-            };
-
-
-            return res.status(400).json( { errorMessages } );
+            return res.status(400).json( errorMessages );
         } else {
-            return res.status(400).json( {
-                message: 'Error: Could not log in user.'
-            } );
+            const message = 'Error: Could not log in user.';
+            errorMessages.messages.push( message );
+
+            return res.status(400).json( errorMessages );
         }
     }
 }

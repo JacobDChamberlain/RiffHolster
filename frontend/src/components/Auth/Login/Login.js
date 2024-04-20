@@ -27,9 +27,9 @@ export default function Login({ setToken, setUser }) {
             password
         });
 
-        if ( loginResponse.errorMessages !== undefined ) {
-            console.log( 'Frontend Error - Login: ', loginResponse.errorMessages.messages );
-            setErrors( loginResponse.errorMessages.messages );
+        if ( loginResponse.messages.length ) {
+            console.log( 'Frontend Error - Login: ', loginResponse.messages );
+            setErrors( loginResponse.messages );
             return;
         }
 
@@ -61,11 +61,11 @@ export default function Login({ setToken, setUser }) {
                 </ul>
                 <label>
                     <p>Email</p>
-                    <input type='email' onChange={ updateEmail } value={ email } required />
+                    <input type='email' onChange={ updateEmail } value={ email } />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type='password' onChange={ updatePassword } value={ password } required />
+                    <input type='password' onChange={ updatePassword } value={ password } />
                 </label>
                 <button className='login-button' type='submit'>Log In</button>
             </form>

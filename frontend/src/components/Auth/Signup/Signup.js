@@ -30,9 +30,9 @@ export default function Signup({ setToken, setUser }) {
 
         // console.log( 'signupResponse: ', signupResponse );
 
-        if ( signupResponse.errorMessages !== undefined ) {
-            console.log( 'Frontend Error - Signup: ', signupResponse.errorMessages.messages );
-            setErrors( signupResponse.errorMessages.messages );
+        if ( signupResponse.messages.length ) {
+            console.log( 'Frontend Error - Signup: ', signupResponse.messages );
+            setErrors( signupResponse.messages );
             return;
         }
 
@@ -68,15 +68,15 @@ export default function Signup({ setToken, setUser }) {
                 </ul>
                 <label>
                     <p>Username</p>
-                    <input type='text' onChange={ updateUsername } value={ username } required />
+                    <input type='text' onChange={ updateUsername } value={ username }  />
                 </label>
                 <label>
                     <p>Email</p>
-                    <input type='email' onChange={ updateEmail } value={ email } required />
+                    <input type='email' onChange={ updateEmail } value={ email }  />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type='password' onChange={ updatePassword } value={ password } required />
+                    <input type='password' onChange={ updatePassword } value={ password }  />
                 </label>
                 <button className='signup-button' type='submit'>Sign Up</button>
             </form>

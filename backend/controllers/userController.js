@@ -6,8 +6,17 @@ const db = require('../models');
 const User = db.User; // change to Users if using line 43 of 'models/index.js'
 
 const signup = async ( req, res ) => {
+    const errorMessages = {
+        messages: []
+    };
+
     try {
         const { username, email, password } = req.body;
+        if ( !username || !username.length ) errorMessages.messages.push( "Username cannot be blank" );
+        if ( !email || !email.length ) errorMessages.messages.push( "Email cannot be blank" );
+        if ( !password || !password.length ) errorMessages.messages.push( "Password cannot be blank" );
+        if ( errorMessages.messages.length ) return res.status( 400 ).json( errorMessages );
+
         const data = {
             username,
             email,
@@ -52,7 +61,7 @@ const signup = async ( req, res ) => {
             };
 
 
-            return res.status(400).json( { errorMessages } );
+            return res.status(400).json( errorMessages );
         } else {
             return res.status(400).json( {
                 message: 'Error: Could not sign up user.'

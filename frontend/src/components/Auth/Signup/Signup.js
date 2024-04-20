@@ -18,6 +18,7 @@ export default function Signup({ setToken, setUser }) {
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -31,6 +32,7 @@ export default function Signup({ setToken, setUser }) {
 
         if ( signupResponse.errorMessages !== undefined ) {
             console.log( 'Frontend Error - Signup: ', signupResponse.errorMessages.messages );
+            setErrors( signupResponse.errorMessages.messages );
             return; //? Error handling - have a useEffect (?) to check if there are error messages present
         }           //? If so, have them displayed on the signup form in red letters.
 
@@ -40,12 +42,20 @@ export default function Signup({ setToken, setUser }) {
         const user = signupResponse.userData;
         setToken( token );
         setUser( user );
+        setErrors([]);
     }
 
     return(
         <div className='signup-wrapper'>
             <h1>Sign Up</h1>
             <form className='signup-form' onSubmit={handleSubmit}>
+                { errors &&
+                    <ul className='signup-errors-ul'>
+                        { errors.map( error => (
+                            <li className='error-li'>{ error }</li>
+                        ))}
+                    </ul>
+                }
                 <label>
                     <p>Username</p>
                     <input type='text' onChange={ e => setUsername( e.target.value ) } />

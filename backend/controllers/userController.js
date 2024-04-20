@@ -21,9 +21,6 @@ const signup = async ( req, res ) => {
                 expiresIn: 1000 * 60 * 60 * 24
             });
 
-            // do we need this if we're sending a token to the frontend?
-            // res.cookie('jwt', token, { maxAge: 60 * 60 * 24, httpOnly: true });
-
             console.log( 'user: ', JSON.stringify( user, null, 2 ));
             console.log( 'token: ', token );
 
@@ -47,12 +44,7 @@ const signup = async ( req, res ) => {
         // console.log( '-------error name: ', err.name );
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            // const errorMessages = errors.map( e => {
-            //     let errObj = {};
-            //     console.log(e.type)
-            //     errObj[e] = e.message;
-            //     return errObj;
-            // } );
+            // console.log( 'Error-----> ', err );
 
             const errorMessages = {
                 messages: errors.map( e => e.message )

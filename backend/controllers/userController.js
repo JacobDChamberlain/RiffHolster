@@ -56,10 +56,7 @@ const signup = async ( req, res ) => {
             // console.log( 'Error-----> ', err );
             // console.log( 'errors----------> ', errors );
 
-            const errorMessages = {
-                messages: errors.map( e => e.message )
-            };
-
+            errorMessages.messages = errors.map( e => e.message );
 
             return res.status(400).json( errorMessages );
         } else {
@@ -71,8 +68,16 @@ const signup = async ( req, res ) => {
 }
 
 const login = async ( req, res ) => {
+    const errorMessages = {
+        messages: []
+    };
+
     try {
         const { email, password } = req.body;
+        if ( !email || !email.length ) errorMessages.messages.push( "Email cannot be blank" );
+        if ( !password || !password.length ) errorMessages.messages.push( "Password cannot be blank" );
+        if ( errorMessages.messages.length ) return res.status( 400 ).json( errorMessages );
+
         console.log( 'login backend, email and password entered: ', email, password )
 
         const user = await User.findOne({
@@ -124,12 +129,9 @@ const login = async ( req, res ) => {
             // console.log( 'Error-----> ', err );
             // console.log( 'errors----------> ', errors );
 
-            const errorMessages = {
-                messages: errors.map( e => e.message )
-            };
+            errorMessages.messages = errors.map( e => e.message );
 
-
-            return res.status(400).json( { errorMessages } );
+            return res.status(400).json( errorMessages );
         } else {
             return res.status(400).json( {
                 message: 'Error: Could not log in user.'

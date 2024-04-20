@@ -44,12 +44,13 @@ const signup = async ( req, res ) => {
         // console.log( '-------error name: ', err.name );
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            console.log( 'Error-----> ', err );
+            // console.log( 'Error-----> ', err );
+            // console.log( 'errors----------> ', errors );
 
             const errorMessages = {
                 messages: errors.map( e => e.message )
             };
-            console.log( 'errors----------> ', errors );
+
 
             return res.status(400).json( { errorMessages } );
         } else {
@@ -108,7 +109,23 @@ const login = async ( req, res ) => {
             return res.status( 404 ).send( message );
         }
     } catch( err ) {
-        console.log( err );
+        // console.log( '-------error name: ', err.name );
+        if ( err.name.includes( 'Sequelize' ) ) {
+            const errors = err.errors;
+            // console.log( 'Error-----> ', err );
+            // console.log( 'errors----------> ', errors );
+
+            const errorMessages = {
+                messages: errors.map( e => e.message )
+            };
+
+
+            return res.status(400).json( { errorMessages } );
+        } else {
+            return res.status(400).json( {
+                message: 'Error: Could not log in user.'
+            } );
+        }
     }
 }
 

@@ -45,28 +45,38 @@ export default function Signup({ setToken, setUser }) {
         setErrors([]);
     }
 
+    const updateUsername = e => {
+        setUsername( e.target.value );
+    };
+
+    const updateEmail = e => {
+        setEmail( e.target.value );
+    };
+
+    const updatePassword = e => {
+        setPassword( e.target.value );
+    }
+
     return(
         <div className='signup-wrapper'>
             <h1>Sign Up</h1>
             <form className='signup-form' onSubmit={handleSubmit}>
-                { errors &&
-                    <ul className='signup-errors-ul'>
-                        { errors.map( error => (
-                            <li key={ error } className='error-li'>{ error }</li>
-                        ))}
-                    </ul>
-                }
+                <ul className='signup-errors-ul'>
+                    { errors.map( ( error, idx ) => (
+                        <li key={ idx } className='error-li'>{ error }</li>
+                    ))}
+                </ul>
                 <label>
                     <p>Username</p>
-                    <input type='text' onChange={ e => setUsername( e.target.value ) } />
+                    <input type='text' onChange={ updateUsername } value={ username } />
                 </label>
                 <label>
                     <p>Email</p>
-                    <input type='email' onChange={ e => setEmail( e.target.value ) } />
+                    <input type='email' onChange={ updateEmail } value={ email } />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type='password' onChange={ e => setPassword( e.target.value ) } />
+                    <input type='password' onChange={ updatePassword } value={ password } />
                 </label>
                 <button className='signup-button' type='submit'>Sign Up</button>
             </form>

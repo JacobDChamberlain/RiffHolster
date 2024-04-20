@@ -18,6 +18,7 @@ export default function Signup({ setToken, setUser }) {
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -31,8 +32,9 @@ export default function Signup({ setToken, setUser }) {
 
         if ( signupResponse.errorMessages !== undefined ) {
             console.log( 'Frontend Error - Signup: ', signupResponse.errorMessages.messages );
-            return; //? Error handling - have a useEffect (?) to check if there are error messages present
-        }           //? If so, have them displayed on the signup form in red letters.
+            setErrors( signupResponse.errorMessages.messages );
+            return;
+        }
 
         const token = {
             token: signupResponse.tokenData
@@ -40,23 +42,41 @@ export default function Signup({ setToken, setUser }) {
         const user = signupResponse.userData;
         setToken( token );
         setUser( user );
+        setErrors([]);
+    }
+
+    const updateUsername = e => {
+        setUsername( e.target.value );
+    };
+
+    const updateEmail = e => {
+        setEmail( e.target.value );
+    };
+
+    const updatePassword = e => {
+        setPassword( e.target.value );
     }
 
     return(
         <div className='signup-wrapper'>
             <h1>Sign Up</h1>
-            <form className='signup-form' onSubmit={handleSubmit}>
+            <form className='signup-form' onSubmit={ handleSubmit }>
+                <ul className='signup-errors-ul'>
+                    { errors.map( ( error, idx ) => (
+                        <li key={ idx } className='error-li'>{ error }</li>
+                    ))}
+                </ul>
                 <label>
                     <p>Username</p>
-                    <input type='text' onChange={ e => setUsername( e.target.value ) } />
+                    <input type='text' onChange={ updateUsername } value={ username } />
                 </label>
                 <label>
                     <p>Email</p>
-                    <input type='email' onChange={ e => setEmail( e.target.value ) } />
+                    <input type='email' onChange={ updateEmail } value={ email } />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type='password' onChange={ e => setPassword( e.target.value ) } />
+                    <input type='password' onChange={ updatePassword } value={ password } />
                 </label>
                 <button className='signup-button' type='submit'>Sign Up</button>
             </form>

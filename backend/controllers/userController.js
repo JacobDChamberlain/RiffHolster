@@ -46,23 +46,23 @@ const signup = async ( req, res ) => {
 
             return res.status( 200 ).send( userAndTokenData );
         } else {
-            console.log( `*** Error signing up: Failed to sign up ***`); //? consider sending errors back here?
-            return res.status( 409 ).send( 'Failed to sign up' );
+            const message = '*** Error signing up: Failed to sign up ***';
+            console.log( message );
+            errorMessages.messages.push( message );
+
+            return res.status( 409 ).json( errorMessages );
         }
     } catch( err ) {
-        // console.log( '-------error name: ', err.name );
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            // console.log( 'Error-----> ', err );
-            // console.log( 'errors----------> ', errors );
-
             errorMessages.messages = errors.map( e => e.message );
 
             return res.status(400).json( errorMessages );
         } else {
-            return res.status(400).json( {
-                message: 'Error: Could not sign up user.'
-            } );
+            const message = 'Error: Could not sign up user.';
+            errorMessages.messages.push( message );
+
+            return res.status(400).json( errorMessages );
         }
     }
 }
@@ -113,29 +113,30 @@ const login = async ( req, res ) => {
 
                 return res.status( 200 ).send( userAndTokenData );
             } else {
-                const message = { 'PasswordError': 'Failed to log in. Wrong password.' };
-                console.log( `*** Error logging in: ${ message['PasswordError'] } ***`);
-                return res.status( 401 ).send( message );
+                const message = 'Failed to log in. Wrong password.';
+                console.log( `*** Error logging in: ${ message } ***`);
+                errorMessages.messages.push( message );
+
+                return res.status( 401 ).json( errorMessages );
             }
         } else {
-            const message = { 'UserError': 'Failed to log in. Can\'t find User.' };
-            console.log( `*** Error logging in: ${ message['UserError'] } ***`);
-            return res.status( 404 ).send( message );
+            const message = 'Failed to log in. Can\'t find User with that Email.';
+            console.log( `*** Error logging in: ${ message } ***`);
+            errorMessages.messages.push( message );
+
+            return res.status( 404 ).json( errorMessages );
         }
     } catch( err ) {
-        // console.log( '-------error name: ', err.name );
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            // console.log( 'Error-----> ', err );
-            // console.log( 'errors----------> ', errors );
-
             errorMessages.messages = errors.map( e => e.message );
 
             return res.status(400).json( errorMessages );
         } else {
-            return res.status(400).json( {
-                message: 'Error: Could not log in user.'
-            } );
+            const message = 'Error: Could not log in user.';
+            errorMessages.messages.push( message );
+
+            return res.status(400).json( errorMessages );
         }
     }
 }

@@ -33,8 +33,8 @@ export default function Signup({ setToken, setUser }) {
         if ( signupResponse.errorMessages !== undefined ) {
             console.log( 'Frontend Error - Signup: ', signupResponse.errorMessages.messages );
             setErrors( signupResponse.errorMessages.messages );
-            return; //? Error handling - have a useEffect (?) to check if there are error messages present
-        }           //? If so, have them displayed on the signup form in red letters.
+            return;
+        }
 
         const token = {
             token: signupResponse.tokenData
@@ -52,7 +52,7 @@ export default function Signup({ setToken, setUser }) {
                 { errors &&
                     <ul className='signup-errors-ul'>
                         { errors.map( error => (
-                            <li className='error-li'>{ error }</li>
+                            <li key={ error } className='error-li'>{ error }</li>
                         ))}
                     </ul>
                 }

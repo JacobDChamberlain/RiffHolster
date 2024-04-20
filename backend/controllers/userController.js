@@ -44,11 +44,12 @@ const signup = async ( req, res ) => {
         // console.log( '-------error name: ', err.name );
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            // console.log( 'Error-----> ', err );
+            console.log( 'Error-----> ', err );
 
             const errorMessages = {
                 messages: errors.map( e => e.message )
             };
+            console.log( 'errors----------> ', errors );
 
             return res.status(400).json( { errorMessages } );
         } else {

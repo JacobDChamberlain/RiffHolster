@@ -1,6 +1,6 @@
 .auth-wrapper {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,7 +73,7 @@
     border-radius: 20px;
     width: 300px;
     padding-bottom: 20px;
-    height: 375px;
+    height: auto;
     color: darkcyan;
 }
 
@@ -100,7 +100,9 @@
 }
 
 .signup-errors-ul {
+    display: flex;
     list-style-type: none;
+    padding: 0px;
 }
 
 .error-li {

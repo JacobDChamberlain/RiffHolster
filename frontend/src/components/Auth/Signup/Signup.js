@@ -60,7 +60,7 @@ export default function Signup({ setToken, setUser }) {
     return(
         <div className='signup-wrapper'>
             <h1>Sign Up</h1>
-            <form className='signup-form' onSubmit={handleSubmit}>
+            <form className='signup-form' onSubmit={ handleSubmit }>
                 <ul className='signup-errors-ul'>
                     { errors.map( ( error, idx ) => (
                         <li key={ idx } className='error-li'>{ error }</li>

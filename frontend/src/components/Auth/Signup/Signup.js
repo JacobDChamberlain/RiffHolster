@@ -68,15 +68,15 @@ export default function Signup({ setToken, setUser }) {
                 </ul>
                 <label>
                     <p>Username</p>
-                    <input type='text' onChange={ updateUsername } value={ username } />
+                    <input type='text' onChange={ updateUsername } value={ username } required />
                 </label>
                 <label>
                     <p>Email</p>
-                    <input type='email' onChange={ updateEmail } value={ email } />
+                    <input type='email' onChange={ updateEmail } value={ email } required />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type='password' onChange={ updatePassword } value={ password } />
+                    <input type='password' onChange={ updatePassword } value={ password } required />
                 </label>
                 <button className='signup-button' type='submit'>Sign Up</button>
             </form>

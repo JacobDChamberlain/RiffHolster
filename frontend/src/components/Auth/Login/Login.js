@@ -61,11 +61,11 @@ export default function Login({ setToken, setUser }) {
                 </ul>
                 <label>
                     <p>Email</p>
-                    <input type='email' onChange={ updateEmail } value={ email } />
+                    <input type='email' onChange={ updateEmail } value={ email } required />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type='password' onChange={ updatePassword } value={ password } />
+                    <input type='password' onChange={ updatePassword } value={ password } required />
                 </label>
                 <button className='login-button' type='submit'>Log In</button>
             </form>

@@ -4,11 +4,6 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       User.hasMany( models.Tab, {
         foreignKey: 'userId',
@@ -21,14 +16,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [6, 20]
+        max: 20,
+        notNull: true,
+        notEmpty: true,
       }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [7, 255]
+        max: 50,
+        notNull: true,
+        notEmpty: true
       }
     },
     hashedPassword: {

@@ -12,17 +12,11 @@ const signup = async ( req, res ) => {
 
     try {
         const { username, email, password } = req.body;
-        if ( !username || !username.length ) errorMessages.messages.push( "Username cannot be blank" );
-        if ( !email || !email.length ) errorMessages.messages.push( "Email cannot be blank" );
-        if ( !password || !password.length ) errorMessages.messages.push( "Password cannot be blank" );
-        if ( errorMessages.messages.length ) return res.status( 400 ).json( errorMessages );
-
         const data = {
             username,
             email,
             hashedPassword: await bcrypt.hash( password, 10 )
         };
-
         const user = await User.create( data );
 
         if ( user ) {
@@ -55,7 +49,14 @@ const signup = async ( req, res ) => {
     } catch( err ) {
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            errorMessages.messages = errors.map( e => e.message );
+            if ( err.errors === undefined ) {
+                if ( err.original !== undefined ) {
+                    errorMessages.messages.push( err.original );
+                }
+            } else {
+                const errs = errors.map( e => e.message );
+                errorMessages.messages = [ ...errorMessages.messages, ...errs ];
+            }
 
             return res.status(400).json( errorMessages );
         } else {

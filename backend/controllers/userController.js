@@ -13,9 +13,11 @@ const signup = async ( req, res ) => {
     try {
         const { username, email, password } = req.body;
 
+        if ( !username || !username.length ) errorMessages.messages.push( "Username cannot be blank" );
+        if ( !email || !email.length ) errorMessages.messages.push( "Email cannot be blank" );
         if ( !password || !password.length ) {
             errorMessages.messages.push( "Password cannot be blank" );
-            throw new Error("errBOI"); // this will indeed skip down to catch block
+            // throw new Error("errBOI"); // this will indeed skip down to catch block
         }
 
         if ( errorMessages.messages.length ) return res.status( 400 ).json( errorMessages );

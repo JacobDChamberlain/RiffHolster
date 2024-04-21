@@ -12,11 +12,20 @@ const signup = async ( req, res ) => {
 
     try {
         const { username, email, password } = req.body;
+
+        if ( !password || !password.length ) {
+            errorMessages.messages.push( "Password cannot be blank" );
+            throw new Error("errBOI"); // this will indeed skip down to catch block
+        }
+
+        if ( errorMessages.messages.length ) return res.status( 400 ).json( errorMessages );
+
         const data = {
             username,
             email,
             hashedPassword: await bcrypt.hash( password, 10 )
         };
+
         const user = await User.create( data );
 
         if ( user ) {
@@ -24,8 +33,8 @@ const signup = async ( req, res ) => {
                 expiresIn: 1000 * 60 * 60 * 24
             });
 
-            console.log( 'user: ', JSON.stringify( user, null, 2 ));
-            console.log( 'token: ', token );
+            // console.log( 'user: ', JSON.stringify( user, null, 2 ));
+            // console.log( 'token: ', token );
 
             const userData = {
                 id: user.id,
@@ -49,22 +58,15 @@ const signup = async ( req, res ) => {
     } catch( err ) {
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            if ( err.errors === undefined ) {
-                if ( err.original !== undefined ) {
-                    errorMessages.messages.push( err.original );
-                }
-            } else {
-                const errs = errors.map( e => e.message );
-                errorMessages.messages = [ ...errorMessages.messages, ...errs ];
-            }
-
-            return res.status(400).json( errorMessages );
-        } else {
-            const message = 'Error: Could not sign up user.';
-            errorMessages.messages.push( message );
-
-            return res.status(400).json( errorMessages );
+            errorMessages.messages = errors.map( e => e.message );
         }
+        // else {
+        //     console.log( 'error: ', err );
+        //     const message = 'Error: Could not sign up user.';
+        //     errorMessages.messages.push( message );
+        // }
+
+        return res.status( 400 ).json( errorMessages );
     }
 }
 

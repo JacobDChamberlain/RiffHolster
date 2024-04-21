@@ -15,9 +15,9 @@ async function signupUser( credentials ) {
 
 
 export default function Signup({ setToken, setUser }) {
-    const [username, setUsername] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = async e => {

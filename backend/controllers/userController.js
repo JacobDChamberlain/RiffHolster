@@ -58,7 +58,8 @@ const signup = async ( req, res ) => {
     } catch( err ) {
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            errorMessages.messages = errors.map( e => e.message );
+            const ers = errors.map( e => e.message );
+            errorMessages.messages = [ ...errorMessages.messages, ...ers ];
         }
         // else {
         //     console.log( 'error: ', err );
@@ -132,7 +133,8 @@ const login = async ( req, res ) => {
     } catch( err ) {
         if ( err.name.includes( 'Sequelize' ) ) {
             const errors = err.errors;
-            errorMessages.messages = errors.map( e => e.message );
+            const ers = errors.map( e => e.message );
+            errorMessages.messages = [ ...errorMessages.messages, ...ers ];
 
             return res.status(400).json( errorMessages );
         } else {

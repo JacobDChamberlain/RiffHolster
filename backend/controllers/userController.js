@@ -6,15 +6,12 @@ const db = require('../models');
 const User = db.User; // change to Users if using line 43 of 'models/index.js'
 
 const signup = async ( req, res ) => {
-    const errorMessages = {
-        messages: []
-    };
-
     try {
         const { username, email, password } = req.body;
-
-        if ( !username || !username.length ) errorMessages.messages.push( "Username cannot be blank" );
-        if ( !email || !email.length ) errorMessages.messages.push( "Email cannot be blank" );
+        const errorMessages = {
+            messages: []
+        };                                                      //! ai fucked me up, i had a plan then opted for the paid version and it erased my conversation and fucked up my whole plan. thanks bito. great job, assholes. fuck you.
+        const newUser = await User.create( req.body );
         if ( !password || !password.length ) {
             errorMessages.messages.push( "Password cannot be blank" );
             // throw new Error("errBOI"); // this will indeed skip down to catch block

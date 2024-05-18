@@ -30,7 +30,7 @@ export default function Signup({ setToken, setUser }) {
 
         // console.log( 'signupResponse: ', signupResponse );
 
-        if ( signupResponse.messages.length ) {
+        if ( signupResponse.messages?.length ) {
             console.log( 'Frontend Error - Signup: ', signupResponse.messages );
             setErrors( signupResponse.messages );
             return;

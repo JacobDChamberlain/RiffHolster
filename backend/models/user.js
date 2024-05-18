@@ -1,18 +1,11 @@
 'use strict';
 
-const { Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 const bcrypt = require('bcrypt');
 
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static associate(models) {
-      User.hasMany( models.Tab, {
-        foreignKey: 'userId',
-        as: 'tabs'
-      });
-    }
-  }
-  User.init({
+const UserModel = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -54,17 +47,33 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: 'Password cannot be blank'
-        },
-        // validatePassword() {
-        //   if (!this.password) {
-        //     throw new Error('Password cannot be blank');
-        //   }
-        // }
+        }
+      }
+    }
+  }, {
+    hooks: {
+      beforeCreate: async ( user ) => {
+        user.hashedPassword = await bcrypt.hash( user.hashedPassword, 10 );
       }
     }
   }, {
     sequelize,
     modelName: 'User',
   });
+
+  User.associate = function( models ) {
+    User.hasMany( models.Tab, {
+      foreignKey: 'userId',
+      as: 'tabs'
+    });
+  };
+
+  User.prototype.validatePassword = async function( password ) {
+    return await bcrypt.compare( password, this.hashedPassword );
+  };
+
   return User;
 };
+
+
+module.exports = UserModel;

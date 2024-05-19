@@ -16,8 +16,8 @@ export async function loginUser( credentials ) {
 
 
 export default function Login({ setToken, setUser }) {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = async e => {

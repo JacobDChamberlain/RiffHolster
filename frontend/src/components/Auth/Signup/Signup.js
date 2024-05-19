@@ -63,7 +63,7 @@ export default function Signup({ setToken, setUser }) {
             <form className='signup-form' onSubmit={ handleSubmit }>
                 <ul className='signup-errors-ul'>
                     { errors.map( ( error, idx ) => (
-                        <li key={ idx } className='error-li'>{ error }</li>
+                        <li key={ idx } className='error-li'>{ error.message }</li>
                     ))}
                 </ul>
                 <label>

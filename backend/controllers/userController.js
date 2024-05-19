@@ -15,7 +15,7 @@ const signup = async ( req, res ) => {
         const data = {
             username,
             email,
-            hashedPassword: await bcrypt.hash( password, 10 )
+            hashedPassword: password
         };
         const user = await User.create( data );
 
@@ -48,15 +48,8 @@ const signup = async ( req, res ) => {
         }
     } catch( err ) {
         if ( err.name.includes( 'Sequelize' ) ) {
-            const errors = err.errors;
-            if ( err.errors === undefined ) {
-                if ( err.original !== undefined ) {
-                    errorMessages.messages.push( err.original );
-                }
-            } else {
-                const errs = errors.map( e => e.message );
-                errorMessages.messages = [ ...errorMessages.messages, ...errs ];
-            }
+            const errors = err.errors.map(e => e.message );
+            errorMessages.messages = [ ...errorMessages.messages, ...errors ];
 
             return res.status(400).json( errorMessages );
         } else {
@@ -129,8 +122,8 @@ const login = async ( req, res ) => {
         }
     } catch( err ) {
         if ( err.name.includes( 'Sequelize' ) ) {
-            const errors = err.errors;
-            errorMessages.messages = errors.map( e => e.message );
+            const errors = err.errors.map( e => e.message );
+            errorMessages.messages = [ ...errorMessages.messages, ...errors ];
 
             return res.status(400).json( errorMessages );
         } else {

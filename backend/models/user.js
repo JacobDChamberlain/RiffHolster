@@ -1,6 +1,7 @@
 'use strict';
 
 const { DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const UserModel = ( sequelize ) => {
   const User = sequelize.define('User',{
@@ -10,7 +11,7 @@ const UserModel = ( sequelize ) => {
       validate: {
         len: {
           args: [0, 20],
-          msg: 'Username can be up to 20 characters'
+          msg: 'Username must be 20 characters or less'
         },
         notNull: {
           msg: 'Username is required'
@@ -26,7 +27,7 @@ const UserModel = ( sequelize ) => {
       validate: {
         len: {
           args: [1,50],
-          msg: 'Email can be up to 50 characters'
+          msg: 'Email must be 50 characters or less'
         },
         notNull: {
           msg: 'Email is required'
@@ -45,6 +46,11 @@ const UserModel = ( sequelize ) => {
     }
   }, {
     modelName: 'User',
+  });
+
+  User.beforeCreate( async ( user, options ) => {
+    const hashedPassword = await bcrypt.hash( user.hashedPassword, 10 );
+    user.hashedPassword = hashedPassword;
   });
 
   User.associate = ( models ) => {

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../models');
+const { sequelizeErrorHandler } = require('../utils/errorHandler');
 
 
 const User = db.User; // change to Users if using line 43 of 'models/index.js'
@@ -47,17 +48,8 @@ const signup = async ( req, res ) => {
             return res.status( 409 ).json( errorMessages );
         }
     } catch( err ) {
-        if ( err.name.includes( 'Sequelize' ) ) {
-            const errors = err.errors.map(e => e.message );
-            errorMessages.messages = [ ...errorMessages.messages, ...errors ];
-
-            return res.status(400).json( errorMessages );
-        } else {
-            const message = 'Error: Could not sign up user.';
-            errorMessages.messages.push( message );
-
-            return res.status(400).json( errorMessages );
-        }
+        const errorResponse = sequelizeErrorHandler( err );
+        return res.status( 400 ).json( errorResponse );
     }
 }
 
@@ -121,17 +113,8 @@ const login = async ( req, res ) => {
             return res.status( 404 ).json( errorMessages );
         }
     } catch( err ) {
-        if ( err.name.includes( 'Sequelize' ) ) {
-            const errors = err.errors.map( e => e.message );
-            errorMessages.messages = [ ...errorMessages.messages, ...errors ];
-
-            return res.status(400).json( errorMessages );
-        } else {
-            const message = 'Error: Could not log in user.';
-            errorMessages.messages.push( message );
-
-            return res.status(400).json( errorMessages );
-        }
+        const errorResponse = sequelizeErrorHandler( err );
+        return res.statuts( 400 ).json( errorResponse );
     }
 }
 

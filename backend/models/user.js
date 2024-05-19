@@ -1,17 +1,9 @@
 'use strict';
 
-const { Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static associate(models) {
-      User.hasMany( models.Tab, {
-        foreignKey: 'userId',
-        as: 'tabs'
-      });
-    }
-  }
-  User.init({
+const UserModel = ( sequelize ) => {
+  const User = sequelize.define('User',{
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -35,8 +27,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    sequelize,
     modelName: 'User',
   });
+
+  User.associate = ( models ) => {
+    User.hasMany( models.Tab, {
+      foreignKey: 'userId',
+      as: 'tabs'
+    });
+  };
+
   return User;
 };
+
+
+module.exports = UserModel;

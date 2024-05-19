@@ -1,18 +1,16 @@
-const sequelizeErrorHandler = ( error ) => {
-    const errorMessages = { messages: [] };
-
+const sequelizeErrorHandler = ( error, messages ) => {
     if ( error.name.includes('Sequelize')) {
         if ( error.errors ) {
             error.errors.forEach( err => {
-                errorMessages.messages.push({ message: err.message, type: err.type });
+                messages.push( err.message );
             });
         } else if ( error.original ) {
-            errorMessages.messages.push({ message: err.original, type: 'Database Error' });
+            messages.push( err.original );
         }
     } else {
-        errorMessages.messages.push({ message: 'An unexpected error occured.', type: 'Unexpected Error' });
+        messages.push( 'An unexpected error occured.' );
     }
-    return errorMessages;
+    return messages;
 }
 
 

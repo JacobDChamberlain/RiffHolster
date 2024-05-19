@@ -33,7 +33,7 @@ const signup = async ( req, res ) => {
                 userData
             };
 
-            return res.status( 200 ).send( userAndTokenData );
+            return res.status( 200 ).json( userAndTokenData );
         } else {
             const message = '*** Error signing up: Failed to sign up ***';
             console.log( message );
@@ -42,8 +42,8 @@ const signup = async ( req, res ) => {
             return res.status( 409 ).json( errorMessages );
         }
     } catch( err ) {
-        const errorResponse = sequelizeErrorHandler( err );
-        return res.status( 400 ).json( errorResponse );
+        sequelizeErrorHandler( err, errorMessages.messages );
+        return res.status( 400 ).json( errorMessages );
     }
 }
 
@@ -74,8 +74,6 @@ const login = async ( req, res ) => {
                     expiresIn: 1000 * 60 * 60 * 24
                 });
 
-                // res.cookie('jwt', token, { maxAge: 60 * 60 * 24, httpOnly: true });
-
                 console.log( 'user', JSON.stringify( user, null, 2 ));
                 console.log( 'token', token );
 
@@ -91,7 +89,7 @@ const login = async ( req, res ) => {
                 };
                 console.log( userAndTokenData );
 
-                return res.status( 200 ).send( userAndTokenData );
+                return res.status( 200 ).json( userAndTokenData );
             } else {
                 const message = 'Failed to log in. Wrong password.';
                 console.log( `*** Error logging in: ${ message } ***`);
@@ -107,8 +105,8 @@ const login = async ( req, res ) => {
             return res.status( 404 ).json( errorMessages );
         }
     } catch( err ) {
-        const errorResponse = sequelizeErrorHandler( err );
-        return res.statuts( 400 ).json( errorResponse );
+        sequelizeErrorHandler( err, errorMessages.messages );
+        return res.status( 400 ).json( errorMessages );
     }
 }
 
@@ -117,8 +115,8 @@ const getAllUsers = async ( req, res ) => {
         const users = await User.findAll();
 
         if ( users ) {
-            const usersData = [];
-            users.forEach( user => usersData.push(
+            const usersData = { users: [] };
+            users.forEach( user => usersData.users.push(
                 {
                     id: user.id,
                     username: user.username,
@@ -127,12 +125,12 @@ const getAllUsers = async ( req, res ) => {
                 }
             ));
 
-            return res.status( 200 ).send( usersData );
+            return res.status( 200 ).json( usersData );
         } else {
-            return res.status( 404 ).send( 'Failed to retrieve all Users' );
+            return res.status( 404 ).json({ error: 'Failed to retrieve all Users' });
         }
     } catch( err ) {
-        const errorResponse = sequelizeErrorHandler( err );
+        const errorResponse = { messages: sequelizeErrorHandler( err ) };
         return res.status( 400 ).json( errorResponse );
     }
 }
@@ -155,12 +153,12 @@ const getUserById = async ( req, res ) => {
                 // tabs: user.tabs <-- why does this not work?
             };
 
-            return res.status( 200 ).send( userDatum );
+            return res.status( 200 ).json( userDatum );
         } else {
-            return res.status( 404 ).send( 'User not found' );
+            return res.status( 404 ).json({ error: 'User not found' });
         }
     } catch( err ) {
-        const errorResponse = sequelizeErrorHandler( err );
+        const errorResponse = { messages: sequelizeErrorHandler( err ) };
         return res.status( 400 ).json( errorResponse );
     }
 }
@@ -189,12 +187,12 @@ const updateUser = async ( req, res ) => {
                 email: user.email
             };
 
-            return res.status( 200 ).send( userDatum );
+            return res.status( 200 ).json( userDatum );
         } else {
-            return res.status( 404 ).send( 'Failed to retrieve user to edit' );
+            return res.status( 404 ).json({ error: 'Failed to retrieve user to edit' });
         }
     } catch( err ) {
-        const errorResponse = sequelizeErrorHandler( err );
+        const errorResponse = { messages: sequelizeErrorHandler( err ) };
         return res.status( 400 ).json( errorResponse );
     }
 }
@@ -203,7 +201,6 @@ const updateUser = async ( req, res ) => {
 module.exports = {
     signup,
     login,
-    // logout,
     getAllUsers,
     getUserById,
     updateUser

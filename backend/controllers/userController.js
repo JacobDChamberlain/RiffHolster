@@ -12,13 +12,7 @@ const signup = async ( req, res ) => {
     };
 
     try {
-        const { username, email, password } = req.body;
-        const data = {
-            username,
-            email,
-            hashedPassword: password
-        };
-        const user = await User.create( data );
+        const user = await User.create( req.body );
 
         if ( user ) {
             const token = jwt.sign({ id: user.id }, process.env.secretKey, {

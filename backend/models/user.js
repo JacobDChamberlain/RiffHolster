@@ -11,7 +11,7 @@ const UserModel = ( sequelize ) => {
       validate: {
         len: {
           args: [0, 20],
-          msg: 'Username must be 20 characters or less'
+          msg: 'Username must be between 1 and 20 characters'
         },
         notNull: {
           msg: 'Username is required'
@@ -27,7 +27,7 @@ const UserModel = ( sequelize ) => {
       validate: {
         len: {
           args: [1,50],
-          msg: 'Email must be 50 characters or less'
+          msg: 'Email must be between 1 and 50 characters'
         },
         notNull: {
           msg: 'Email is required'
@@ -40,17 +40,33 @@ const UserModel = ( sequelize ) => {
         }
       }
     },
+    password: {
+      type: DataTypes.VIRTUAL,
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1,50],
+          msg: 'Password must be between 1 and 50 characters'
+        },
+        notNull: {
+          msg: 'Password must not be null'
+        },
+        notEmpty: {
+          msg: 'Password must not be blank'
+        }
+      }
+    },
     hashedPassword: {
       type: DataTypes.STRING,
-      allowNull: false
+    }
+  }, {
+    hooks: {
+      beforeCreate: async ( user ) => {
+        user.hashedPassword = await bcrypt.hash( user.password, 10 );
+      }
     }
   }, {
     modelName: 'User',
-  });
-
-  User.beforeCreate( async ( user, options ) => {
-    const hashedPassword = await bcrypt.hash( user.hashedPassword, 10 );
-    user.hashedPassword = hashedPassword;
   });
 
   User.associate = ( models ) => {

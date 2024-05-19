@@ -8,18 +8,35 @@ const UserModel = ( sequelize ) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        max: 20,
-        notNull: true,
-        notEmpty: true,
+        len: {
+          args: [0, 20],
+          msg: 'Username can be up to 20 characters'
+        },
+        notNull: {
+          msg: 'Username is required'
+        },
+        notEmpty: {
+          msg: 'Username must not be blank'
+        },
       }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        max: 50,
-        notNull: true,
-        notEmpty: true
+        len: {
+          args: [1,50],
+          msg: 'Email can be up to 50 characters'
+        },
+        notNull: {
+          msg: 'Email is required'
+        },
+        notEmpty: {
+          msg: 'Email must not be blank'
+        },
+        isEmail: {
+          msg: 'Invalid email format'
+        }
       }
     },
     hashedPassword: {

@@ -27,7 +27,7 @@ export default function Login({ setToken, setUser }) {
             password
         });
 
-        if ( loginResponse.messages.length ) {
+        if ( loginResponse.messages?.length ) {
             console.log( 'Frontend Error - Login: ', loginResponse.messages );
             setErrors( loginResponse.messages );
             return;

@@ -112,17 +112,6 @@ const login = async ( req, res ) => {
     }
 }
 
-// does this actually do anything if we're using a token in localstorage for authentication?
-// ...because we can just delete the token from localstorage to logout
-// const logout = async ( req, res ) => {
-//     console.log('logout');
-//     // const logoutMessage = {
-//     //     "message": "User logged out"
-//     // }
-
-//     // return res.status( 200 ).clearCookie('jwt').send( logoutMessage );
-// }
-
 const getAllUsers = async ( req, res ) => {
     try {
         const users = await User.findAll();
@@ -142,8 +131,9 @@ const getAllUsers = async ( req, res ) => {
         } else {
             return res.status( 404 ).send( 'Failed to retrieve all Users' );
         }
-    } catch ( err ) {
-        console.log( err );
+    } catch( err ) {
+        const errorResponse = sequelizeErrorHandler( err );
+        return res.status( 400 ).json( errorResponse );
     }
 }
 
@@ -170,7 +160,8 @@ const getUserById = async ( req, res ) => {
             return res.status( 404 ).send( 'User not found' );
         }
     } catch( err ) {
-        console.log( err );
+        const errorResponse = sequelizeErrorHandler( err );
+        return res.status( 400 ).json( errorResponse );
     }
 }
 
@@ -202,8 +193,9 @@ const updateUser = async ( req, res ) => {
         } else {
             return res.status( 404 ).send( 'Failed to retrieve user to edit' );
         }
-    } catch ( err ) {
-        console.log( err );
+    } catch( err ) {
+        const errorResponse = sequelizeErrorHandler( err );
+        return res.status( 400 ).json( errorResponse );
     }
 }
 

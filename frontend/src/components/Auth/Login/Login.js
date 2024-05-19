@@ -16,8 +16,8 @@ export async function loginUser( credentials ) {
 
 
 export default function Login({ setToken, setUser }) {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = async e => {
@@ -27,7 +27,7 @@ export default function Login({ setToken, setUser }) {
             password
         });
 
-        if ( loginResponse.messages.length ) {
+        if ( loginResponse.messages?.length ) {
             console.log( 'Frontend Error - Login: ', loginResponse.messages );
             setErrors( loginResponse.messages );
             return;

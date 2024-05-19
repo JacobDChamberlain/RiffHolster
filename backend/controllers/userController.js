@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../models');
+const { sequelizeErrorHandler } = require('../utils/errorHandler');
 
 
 const User = db.User; // change to Users if using line 43 of 'models/index.js'
@@ -11,13 +12,7 @@ const signup = async ( req, res ) => {
     };
 
     try {
-        const { username, email, password } = req.body;
-        const data = {
-            username,
-            email,
-            hashedPassword: await bcrypt.hash( password, 10 )
-        };
-        const user = await User.create( data );
+        const user = await User.create( req.body );
 
         if ( user ) {
             const token = jwt.sign({ id: user.id }, process.env.secretKey, {
@@ -38,7 +33,7 @@ const signup = async ( req, res ) => {
                 userData
             };
 
-            return res.status( 200 ).send( userAndTokenData );
+            return res.status( 200 ).json( userAndTokenData );
         } else {
             const message = '*** Error signing up: Failed to sign up ***';
             console.log( message );
@@ -47,24 +42,8 @@ const signup = async ( req, res ) => {
             return res.status( 409 ).json( errorMessages );
         }
     } catch( err ) {
-        if ( err.name.includes( 'Sequelize' ) ) {
-            const errors = err.errors;
-            if ( err.errors === undefined ) {
-                if ( err.original !== undefined ) {
-                    errorMessages.messages.push( err.original );
-                }
-            } else {
-                const errs = errors.map( e => e.message );
-                errorMessages.messages = [ ...errorMessages.messages, ...errs ];
-            }
-
-            return res.status(400).json( errorMessages );
-        } else {
-            const message = 'Error: Could not sign up user.';
-            errorMessages.messages.push( message );
-
-            return res.status(400).json( errorMessages );
-        }
+        sequelizeErrorHandler( err, errorMessages.messages );
+        return res.status( 400 ).json( errorMessages );
     }
 }
 
@@ -95,8 +74,6 @@ const login = async ( req, res ) => {
                     expiresIn: 1000 * 60 * 60 * 24
                 });
 
-                // res.cookie('jwt', token, { maxAge: 60 * 60 * 24, httpOnly: true });
-
                 console.log( 'user', JSON.stringify( user, null, 2 ));
                 console.log( 'token', token );
 
@@ -112,7 +89,7 @@ const login = async ( req, res ) => {
                 };
                 console.log( userAndTokenData );
 
-                return res.status( 200 ).send( userAndTokenData );
+                return res.status( 200 ).json( userAndTokenData );
             } else {
                 const message = 'Failed to log in. Wrong password.';
                 console.log( `*** Error logging in: ${ message } ***`);
@@ -128,38 +105,18 @@ const login = async ( req, res ) => {
             return res.status( 404 ).json( errorMessages );
         }
     } catch( err ) {
-        if ( err.name.includes( 'Sequelize' ) ) {
-            const errors = err.errors;
-            errorMessages.messages = errors.map( e => e.message );
-
-            return res.status(400).json( errorMessages );
-        } else {
-            const message = 'Error: Could not log in user.';
-            errorMessages.messages.push( message );
-
-            return res.status(400).json( errorMessages );
-        }
+        sequelizeErrorHandler( err, errorMessages.messages );
+        return res.status( 400 ).json( errorMessages );
     }
 }
-
-// does this actually do anything if we're using a token in localstorage for authentication?
-// ...because we can just delete the token from localstorage to logout
-// const logout = async ( req, res ) => {
-//     console.log('logout');
-//     // const logoutMessage = {
-//     //     "message": "User logged out"
-//     // }
-
-//     // return res.status( 200 ).clearCookie('jwt').send( logoutMessage );
-// }
 
 const getAllUsers = async ( req, res ) => {
     try {
         const users = await User.findAll();
 
         if ( users ) {
-            const usersData = [];
-            users.forEach( user => usersData.push(
+            const usersData = { users: [] };
+            users.forEach( user => usersData.users.push(
                 {
                     id: user.id,
                     username: user.username,
@@ -168,12 +125,13 @@ const getAllUsers = async ( req, res ) => {
                 }
             ));
 
-            return res.status( 200 ).send( usersData );
+            return res.status( 200 ).json( usersData );
         } else {
-            return res.status( 404 ).send( 'Failed to retrieve all Users' );
+            return res.status( 404 ).json({ error: 'Failed to retrieve all Users' });
         }
-    } catch ( err ) {
-        console.log( err );
+    } catch( err ) {
+        const errorResponse = { messages: sequelizeErrorHandler( err ) };
+        return res.status( 400 ).json( errorResponse );
     }
 }
 
@@ -195,12 +153,13 @@ const getUserById = async ( req, res ) => {
                 // tabs: user.tabs <-- why does this not work?
             };
 
-            return res.status( 200 ).send( userDatum );
+            return res.status( 200 ).json( userDatum );
         } else {
-            return res.status( 404 ).send( 'User not found' );
+            return res.status( 404 ).json({ error: 'User not found' });
         }
     } catch( err ) {
-        console.log( err );
+        const errorResponse = { messages: sequelizeErrorHandler( err ) };
+        return res.status( 400 ).json( errorResponse );
     }
 }
 
@@ -228,12 +187,13 @@ const updateUser = async ( req, res ) => {
                 email: user.email
             };
 
-            return res.status( 200 ).send( userDatum );
+            return res.status( 200 ).json( userDatum );
         } else {
-            return res.status( 404 ).send( 'Failed to retrieve user to edit' );
+            return res.status( 404 ).json({ error: 'Failed to retrieve user to edit' });
         }
-    } catch ( err ) {
-        console.log( err );
+    } catch( err ) {
+        const errorResponse = { messages: sequelizeErrorHandler( err ) };
+        return res.status( 400 ).json( errorResponse );
     }
 }
 
@@ -241,7 +201,6 @@ const updateUser = async ( req, res ) => {
 module.exports = {
     signup,
     login,
-    // logout,
     getAllUsers,
     getUserById,
     updateUser

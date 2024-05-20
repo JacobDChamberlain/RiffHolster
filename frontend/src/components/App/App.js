@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 // import Home from '../Home/Home';
 // import useToken from './useToken';
 // import useUser from './useUser';
-import { AlphaTabApi, Settings } from '@coderline/alphatab';
+import { AlphaTabApi } from '@coderline/alphatab';
 import './App.css';
 
 

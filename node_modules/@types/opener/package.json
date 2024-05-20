@@ -1,0 +1,27 @@
+{
+    "name": "@types/opener",
+    "version": "1.4.3",
+    "description": "TypeScript definitions for opener",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opener",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Rahul Ravikumar",
+            "githubUsername": "tikurahul",
+            "url": "https://github.com/tikurahul"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/opener"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "b707845499014ebc1a59d48275684bf9a425893516242db526a23a523d5c7bfb",
+    "typeScriptVersion": "4.5"
+}

@@ -33,3 +33,13 @@ input:hover {
     border: 1px solid blueviolet;
     margin: -1px;
 }
+
+@font-face {
+    font-family: 'Bravura';
+    src: url('../public/fonts/Bravura.woff2') format('woff2'),
+         url('../public/fonts/Bravura.woff') format('woff')
+         url('../public/fonts/BravuraText.woff2') format('woff2'),
+         url('../public/fonts/BravuraText.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

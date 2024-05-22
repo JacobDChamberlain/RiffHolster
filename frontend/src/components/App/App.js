@@ -47,9 +47,8 @@ function App() {
 
   return (
     <div className='app-wrapper'>
-      Hello!
       <button onClick={() => playPause()}>Play/Pause</button>
-      <div style={{ height: '500px', border: '1px solid red', borderRadius: '40px'}} ref={elementRef}></div>
+      <div ref={elementRef}></div>
     </div>
 
     // <div className='app-wrapper'>

@@ -28,7 +28,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
-const AlphaTabWebPackPlugin = require('@coderline/alphatab/webpack');
+const { AlphaTabWebPackPlugin } = require('@coderline/alphatab/webpack');
 
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -87,6 +87,7 @@ const hasJsxRuntime = (() => {
     return false;
   }
 })();
+console.log( "AlphaTab--->, ", Object.getOwnPropertyNames(AlphaTabWebPackPlugin.prototype));
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -750,7 +751,9 @@ module.exports = function (webpackEnv) {
             },
           },
         }),
-        new AlphaTabWebPackPlugin(),
+        new AlphaTabWebPackPlugin({
+          alphaTabSourceDir: path.resolve('./node_modules/@coderline/alphaTab/dist')
+        }),
     ].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter

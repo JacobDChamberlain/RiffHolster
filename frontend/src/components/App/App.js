@@ -48,6 +48,9 @@ function App() {
     api?.playPause();
   }
 
+
+
+
   // const { token, setToken, removeToken } = useToken();
   // const { user, setUser, removeUser } = useUser();
 
@@ -60,6 +63,9 @@ function App() {
       <button onClick={() => playPause()}>Play/Pause</button>
       <div ref={elementRef}></div>
     </div>
+
+
+
 
     // <div className='app-wrapper'>
     //   <NavigationBar user={ user } removeToken={ removeToken } removeUser={ removeUser } />

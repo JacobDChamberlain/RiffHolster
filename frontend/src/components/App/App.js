@@ -8,6 +8,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AlphaTabApi } from '@coderline/alphatab';
 import './App.css';
 
+import AltitudesTab from './testTabs/Altitudes.gp5';
+import ElectricRedTab from './testTabs/electric_red.gp5';
+import InDeathIsDeathTab from './testTabs/in_death_is_death.gp5';
+
+const tabs = {
+  "Altitudes": AltitudesTab,
+  "Electric Red": ElectricRedTab,
+  "In Death Is Death": InDeathIsDeathTab
+}
+
 
 function App() {
   const elementRef = useRef( null );
@@ -16,7 +26,7 @@ function App() {
   useEffect(() => {
     const settings = {
       core: {
-        file: 'https://www.alphatab.net/files/canon.gp',
+        file: tabs["Electric Red"],
         fontDirectory: '/fonts/'
       },
       player: {

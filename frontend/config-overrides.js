@@ -1,14 +1,23 @@
 const path = require('path')
 const { AlphaTabWebPackPlugin } = require('@coderline/alphatab/webpack');
+const { addWebpackPlugin, override } = require('customize-cra');
 
-module.exports = function override(config, env) {
-    if ( !config.plugins ) {
-        config.plugins = [];
-    }
+module.exports = override(
+    addWebpackPlugin(
+        new AlphaTabWebPackPlugin({
+            alphaTabSourceDir: path.resolve('./node_modules/@coderline/alphatab/dist')
+        })
+    )
+);
 
-    config.plugins.push( new AlphaTabWebPackPlugin({
-        alphaTabSourceDir: path.resolve('./node_modules/@coderline/alphatab/dist')
-    }));
+// module.exports = function override(config, env) {
+//     if ( !config.plugins ) {
+//         config.plugins = [];
+//     }
 
-    return config;
-}
+//     config.plugins.push( new AlphaTabWebPackPlugin({
+//         alphaTabSourceDir: path.resolve('./node_modules/@coderline/alphatab/dist')
+//     }));
+
+//     return config;
+// }

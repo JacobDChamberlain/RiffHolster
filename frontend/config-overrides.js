@@ -5,8 +5,7 @@ const { addWebpackPlugin, override } = require('customize-cra');
 module.exports = override(
     addWebpackPlugin(
         new AlphaTabWebPackPlugin({
-            alphaTabSourceDir: path.resolve('./node_modules/@coderline/alphatab/dist'),
-            audioWorklets: false
+            alphaTabSourceDir: path.resolve('./node_modules/@coderline/alphatab/dist')
         })
     )
 );

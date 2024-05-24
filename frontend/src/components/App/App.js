@@ -11,11 +11,13 @@ import './App.css';
 import AltitudesTab from './testTabs/Altitudes.gp5';
 import ElectricRedTab from './testTabs/electric_red.gp5';
 import InDeathIsDeathTab from './testTabs/in_death_is_death.gp5';
+import WhirlingFortress1 from './testTabs/whirlTHIS.gp5';
 
 const tabs = {
   "Altitudes": AltitudesTab,
   "Electric Red": ElectricRedTab,
-  "In Death Is Death": InDeathIsDeathTab
+  "In Death Is Death": InDeathIsDeathTab,
+  "Whirling Fortress": WhirlingFortress1
 }
 
 
@@ -26,7 +28,7 @@ function App() {
   useEffect(() => {
     const settings = {
       core: {
-        file: tabs["Electric Red"],
+        file: tabs["Whirling Fortress"],
         fontDirectory: '/fonts/'
       },
       player: {
@@ -38,6 +40,8 @@ function App() {
     };
 
     const api = new AlphaTabApi( elementRef.current, settings );
+
+    console.log('api-----> ', api)
 
     setApi( api );
 
@@ -62,6 +66,7 @@ function App() {
     <div className='app-wrapper'>
       <button onClick={() => playPause()}>Play/Pause</button>
       <div ref={elementRef}></div>
+      <div id="alphaTab" data-layout-mode="horizontal"></div>
     </div>
 
 

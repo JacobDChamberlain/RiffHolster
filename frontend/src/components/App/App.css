@@ -19,3 +19,8 @@
     fill: #0078ff;
     stroke: #0078ff;
   }
+
+  .at-player {
+    border: 1px solid red;
+    border-radius: 40px;
+  }

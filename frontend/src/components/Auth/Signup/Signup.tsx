@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { SignupCredentials, AuthProps } from '../../../../interfaces/user';
 
 
-async function signupUser( credentials ) {
+async function signupUser( credentials: SignupCredentials ) {
     return fetch('http://localhost:8080/users/signup', {
         method: 'POST',
         headers: {
@@ -14,13 +15,13 @@ async function signupUser( credentials ) {
 }
 
 
-export default function Signup({ setToken, setUser }) {
+export default function Signup({ setToken, setUser }: AuthProps) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const signupResponse = await signupUser({
             username,
@@ -43,15 +44,15 @@ export default function Signup({ setToken, setUser }) {
         setErrors([]);
     }
 
-    const updateUsername = e => {
+    const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername( e.target.value );
     };
 
-    const updateEmail = e => {
+    const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail( e.target.value );
     };
 
-    const updatePassword = e => {
+    const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword( e.target.value );
     }
 

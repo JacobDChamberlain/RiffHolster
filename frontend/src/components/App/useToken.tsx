@@ -4,7 +4,6 @@ import { useState } from "react";
 export default function useToken() {
     const getToken = () => {
         const userToken = localStorage.getItem( 'token' );
-        // if (!token) throw new Error("Error getting user token");
         return userToken;
     }
 

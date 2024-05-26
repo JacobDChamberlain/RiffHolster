@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 // import PropTypes from 'prop-types'; <-- why do i need this?
+import { User, LoginCredentials, AuthProps } from '../../../../interfaces/user';
 
 
-export async function loginUser( credentials ) {
+export async function loginUser( credentials: LoginCredentials ) {
     return fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: {
@@ -11,16 +12,16 @@ export async function loginUser( credentials ) {
         body: JSON.stringify( credentials )
     })
         .then( data => data.json() )
-        .catch( err => console.error( err ) ); //? do something with the error instead of just log to console
+        .catch( err => console.error( err ) );
 }
 
 
-export default function Login({ setToken, setUser }) {
+export default function Login({ setToken, setUser }: AuthProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const loginResponse = await loginUser({
             email,
@@ -33,20 +34,18 @@ export default function Login({ setToken, setUser }) {
             return;
         }
 
-        const token = {
-            token: loginResponse.tokenData
-        };
-        const user = loginResponse.userData;
+        const token = loginResponse.token;
+        const user = loginResponse.userData  as User;
         setToken( token );
         setUser( user );
         setErrors([]);
     }
 
-    const updateEmail = e => {
+    const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail( e.target.value );
     };
 
-    const updatePassword = e => {
+    const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword( e.target.value );
     }
 

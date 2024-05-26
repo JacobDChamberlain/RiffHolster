@@ -1,8 +1,8 @@
-import React from 'react';
+import { LogoutProps } from '../../../../interfaces/user';
 import './Logout.css';
 
 
-export default function Logout({ removeToken, removeUser }) {
+export default function Logout({ removeToken, removeUser }: LogoutProps) {
     function logout() {
         removeToken();
         removeUser();

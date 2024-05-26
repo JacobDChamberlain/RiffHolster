@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import Login from '../Auth/Login/Login';
-import Signup from '../Auth/Signup/Signup';
+import { useState } from 'react';
+import Login from './Login/Login.tsx';
+import Signup from './Signup/Signup.tsx';
+import { AuthProps } from '../../../interfaces/user';
 import './Auth.css'
 
 
-export default function Auth({ setToken, setUser }) {
+export default function Auth({ setToken, setUser }: AuthProps) {
     const [showSignup, setShowSignup] = useState(false);
     const toggleMessage = showSignup ? "Already have an account?" : "No account? Sign up here!";
 
-    const handleToggleSignup = e => {
+    const handleToggleSignup = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setShowSignup( !showSignup );
     }

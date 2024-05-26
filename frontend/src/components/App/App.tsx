@@ -1,11 +1,11 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Auth from '../Auth/Auth';
-import NavigationBar from '../NavigationBar/NavigationBar';
-import Home from '../Home/Home';
-import useToken from './useToken';
-import useUser from './useUser';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Auth from '../Auth/Auth.tsx';
+import NavigationBar from '../NavigationBar/NavigationBar.tsx';
+import Home from '../Home/Home.tsx';
+import useToken from './useToken.tsx';
+import useUser from './useUser.tsx';
 
+import './App.css'
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -14,6 +14,7 @@ function App() {
   if ( !token ) {
     return <Auth setToken={ setToken } setUser={ setUser } />
   }
+
 
   return (
     <div className='app-wrapper'>
@@ -26,7 +27,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

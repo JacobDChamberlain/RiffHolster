@@ -1,2 +1,2 @@
 console.log('worker');
-import '@coderline/alphatab/worker'
+import '@coderline/alphatab/worker';

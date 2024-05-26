@@ -11,7 +11,7 @@ export async function loginUser( credentials ) {
         body: JSON.stringify( credentials )
     })
         .then( data => data.json() )
-        .catch( err => console.error( err ) ); //? do something with the error instead of just log to console
+        .catch( err => console.error( err ) );
 }
 
 

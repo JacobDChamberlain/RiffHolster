@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { AlphaTabApi, Settings } from '@coderline/alphatab';
+import useUser from '../App/useUser';
 import './Home.css';
 
-import ElectricRed from '../../testTab/ElectricRed.gp5';
+import ElectricRed from '../../testTab/electric_red.gp5';
 import Altitudes from '../../testTab/Altitudes.gp5';
 import InDeathIsDeath from '../../testTab/in_death_is_death.gp5';
 import whirlTHIS from '../../testTab/whirlTHIS.gp5';
@@ -11,11 +12,13 @@ import whirlTHIS from '../../testTab/whirlTHIS.gp5';
 export default function Home() {
     const elementRef = useRef<HTMLDivElement>(null);
     const [api, setApi] = useState<AlphaTabApi>();
+    const { user } = useUser();
+    const tabFilePath = '../' + user.tabs[0].fileURL;
 
     useEffect(() => {
         const api = new AlphaTabApi(elementRef.current!, {
         core: {
-            file: whirlTHIS,
+            file: tabFilePath,
             fontDirectory: '/font/'
         },
         player: {

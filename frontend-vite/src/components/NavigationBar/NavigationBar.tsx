@@ -1,4 +1,3 @@
-import React from 'react';
 import './NavigationBar.css';
 
 import Logout from '../Auth/Logout/Logout';

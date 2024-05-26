@@ -4,7 +4,8 @@ const db = require('../models');
 const { sequelizeErrorHandler } = require('../utils/errorHandler');
 
 
-const User = db.User; // change to Users if using line 43 of 'models/index.js'
+const User = db.User;
+const Tab = db.Tab;
 
 const signup = async ( req, res ) => {
     const errorMessages = {
@@ -61,9 +62,8 @@ const login = async ( req, res ) => {
         console.log( 'login backend, email and password entered: ', email, password )
 
         const user = await User.findOne({
-            where: {
-                email
-            }
+            where: { email },
+            include: [{ model: Tab, as: 'tabs' }]
         });
 
         if ( user ) {
@@ -80,7 +80,8 @@ const login = async ( req, res ) => {
                 const userData = {
                     id: user.id,
                     username: user.username,
-                    email: user.email
+                    email: user.email,
+                    tabs: user.tabs
                 };
 
                 const userAndTokenData = {
@@ -112,18 +113,18 @@ const login = async ( req, res ) => {
 
 const getAllUsers = async ( req, res ) => {
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+            include: [{ model: Tab, as: 'tabs' }]
+        });
 
         if ( users ) {
-            const usersData = { users: [] };
-            users.forEach( user => usersData.users.push(
-                {
-                    id: user.id,
-                    username: user.username,
-                    email: user.email
-                    // tabs: user.tabs <-- why does this not work?
-                }
-            ));
+            const usersData = [];
+            users.forEach( user => usersData.push({
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                tabs: user.tabs
+            }));
 
             return res.status( 200 ).json( usersData );
         } else {
@@ -140,17 +141,16 @@ const getUserById = async ( req, res ) => {
         const userId = req.params.userId;
 
         const user = await User.findOne({
-            where: {
-                id: userId
-            }
+            where: { id: userId },
+            include: [{ model: Tab, as: 'tabs' }]
         });
 
         if ( user ) {
             const userDatum = {
                 id: user.id,
                 username: user.username,
-                email: user.email
-                // tabs: user.tabs <-- why does this not work?
+                email: user.email,
+                tabs: user.tabs
             };
 
             return res.status( 200 ).json( userDatum );
@@ -169,9 +169,8 @@ const updateUser = async ( req, res ) => {
 
     try {
         const user = await User.findOne({
-            where: {
-                id: userId
-            }
+            where: { id: userId },
+            include: [{ model: Tab, as: 'tabs' }]
         });
 
         if ( user ) {
@@ -184,7 +183,8 @@ const updateUser = async ( req, res ) => {
             const userDatum = {
                 id: user.id,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                tabs: user.tabs
             };
 
             return res.status( 200 ).json( userDatum );

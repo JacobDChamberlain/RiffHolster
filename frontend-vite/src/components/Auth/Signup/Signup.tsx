@@ -36,9 +36,7 @@ export default function Signup({ setToken, setUser }) {
             return;
         }
 
-        const token = {
-            token: signupResponse.tokenData
-        };
+        const token = signupResponse.token;
         const user = signupResponse.userData;
         setToken( token );
         setUser( user );

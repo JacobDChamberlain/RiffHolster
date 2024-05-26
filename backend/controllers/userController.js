@@ -29,7 +29,7 @@ const signup = async ( req, res ) => {
             };
 
             const userAndTokenData = {
-                tokenData: token,
+                token,
                 userData
             };
 
@@ -84,7 +84,7 @@ const login = async ( req, res ) => {
                 };
 
                 const userAndTokenData = {
-                    tokenData: token,
+                    token,
                     userData
                 };
                 console.log( userAndTokenData );

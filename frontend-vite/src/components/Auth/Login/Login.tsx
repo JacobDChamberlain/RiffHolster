@@ -33,9 +33,7 @@ export default function Login({ setToken, setUser }) {
             return;
         }
 
-        const token = {
-            token: loginResponse.tokenData
-        };
+        const token = loginResponse.token;
         const user = loginResponse.userData;
         setToken( token );
         setUser( user );

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { AlphaTabApi, Settings } from '@coderline/alphatab';
 import useUser from '../App/useUser';
 import { Tab } from '../../../interfaces/tab';
+import TrackSelector from './TrackSelector/TrackSelector';
 import './Home.css';
 
 
@@ -31,14 +32,14 @@ export default function Home() {
                     enableUserInteraction: true,
                     soundFont: '/soundfont/sonivox.sf2'
                 }
-                } as Settings);
+            } as Settings);
 
-                setApi( api );
+            setApi( api );
 
-                return () => {
-                    console.log('destroy', elementRef)
-                    api.destroy();
-                }
+            return () => {
+                console.log('destroy', elementRef)
+                api.destroy();
+            }
         }
     }, [tabFilePath]);
 
@@ -61,7 +62,8 @@ export default function Home() {
                     <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
                 ))}
             </select>
-            <div className='hello' ref={ elementRef }></div>
+            <TrackSelector />
+            <div ref={ elementRef }></div>
         </div>
     )
 }

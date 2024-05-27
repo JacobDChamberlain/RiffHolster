@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { User, LoginCredentials, AuthProps } from '../../../../interfaces/user';
 
 
-export async function loginUser( credentials: LoginCredentials ) {
+async function loginUser( credentials: LoginCredentials ) {
     return fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: {
@@ -29,7 +29,6 @@ export default function Login({ setToken, setUser }: AuthProps) {
         });
 
         if ( loginResponse.messages?.length ) {
-            console.log( 'Frontend Error - Login: ', loginResponse.messages );
             setErrors( loginResponse.messages );
             return;
         }

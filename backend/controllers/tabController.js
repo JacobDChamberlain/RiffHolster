@@ -53,7 +53,7 @@ const getAllTabs = async ( req, res ) => {
     }
 }
 
-const getTabById = async ( req, res ) => {
+const getTabByTabId = async ( req, res ) => {
     const tabId = req.params.tabId;
 
     try {
@@ -169,7 +169,7 @@ const deleteTab = async ( req, res ) => {
 module.exports = {
     createTab,
     getAllTabs,
-    getTabById,
+    getTabByTabId,
     getTabsByUserId,
     updateTab,
     deleteTab

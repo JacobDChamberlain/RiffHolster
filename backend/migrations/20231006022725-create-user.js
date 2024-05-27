@@ -29,6 +29,18 @@ module.exports = {
           min: 8
         }
       },
+      // guitarTabs: {
+      //   type: Sequelize.ARRAY(Sequelize.INTEGER),
+      //   references: {
+      //     model: 'Tab',
+      //     key: 'id'
+      //   },
+      //   allowNull: true
+      // },
+      // guitarTabs: {
+      //   type: Sequelize.ARRAY(Sequelize.INTEGER),
+      //   allowNull: true
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

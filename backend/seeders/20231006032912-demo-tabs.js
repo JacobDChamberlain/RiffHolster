@@ -14,6 +14,27 @@ module.exports = {
       {
         name: 'In Death Is Death',
         fileURL: '/testTabs/in_death_is_death.gp5',
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Altitudes',
+        fileURL: '/testTabs/altitudes.gp5',
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Whirling Fortress',
+        fileURL: '/testTabs/whirlTHIS.gp5',
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'In Death Is Death',
+        fileURL: '/testTabs/in_death_is_death.gp5',
         userId: 2,
         createdAt: new Date(),
         updatedAt: new Date()

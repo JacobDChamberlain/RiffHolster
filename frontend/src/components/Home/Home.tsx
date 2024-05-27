@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { AlphaTabApi, Settings } from '@coderline/alphatab';
 import useUser from '../App/useUser';
+import { Tab } from '../../../interfaces/tab';
 import './Home.css';
 
 
@@ -45,7 +46,7 @@ export default function Home() {
         api?.playPause();
     }
 
-    const updateTabFilePath = (e) => {
+    const updateTabFilePath = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setTabFilePath( e.target.value );
     };
 
@@ -55,8 +56,8 @@ export default function Home() {
             <h3>Homepage</h3>
             <h4>Here, you will find your riffs.</h4>
             <button onClick={() => playPause()}>Play/Pause</button>
-            <select value={tabFilePath} onChange={updateTabFilePath}>
-                {user.tabs.map((tab) => (
+            <select value={tabFilePath || ''} onChange={updateTabFilePath}>
+                {user.tabs.map((tab: Tab) => (
                     <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
                 ))}
             </select>

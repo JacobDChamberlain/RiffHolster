@@ -45,12 +45,21 @@ export default function Home() {
         api?.playPause();
     }
 
+    const updateTabFilePath = (e) => {
+        setTabFilePath( e.target.value );
+    };
+
 
     return(
         <div className='home-wrapper'>
             <h3>Homepage</h3>
             <h4>Here, you will find your riffs.</h4>
             <button onClick={() => playPause()}>Play/Pause</button>
+            <select value={tabFilePath} onChange={updateTabFilePath}>
+                {user.tabs.map((tab) => (
+                    <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
+                ))}
+            </select>
             <div className='hello' ref={ elementRef }></div>
         </div>
     )

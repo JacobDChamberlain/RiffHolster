@@ -14,7 +14,6 @@ export default function Home() {
         if (user && user.tabs && user.tabs.length > 0) {
             const fileURL = user.tabs[0].fileURL;
             setTabFilePath(fileURL);
-            console.log('test push to main')
         }
     }, [user]);
 

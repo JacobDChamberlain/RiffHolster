@@ -20,6 +20,10 @@ const TrackSelector: React.FC = () => {
         }
     }, [user]);
 
+    // useEffect(() => {
+    //     console.log(api?.score?.tracks)
+    // }, [tabFilePath])
+
     useEffect(() => {
         if (mainRef.current) {
             // const settings = {

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AlphaTabApi, Score, Track } from '@coderline/alphatab';
+import { AlphaTabApi, Score, Track, Settings } from '@coderline/alphatab';
 import './TrackSelector.css';
+import useUser from '../../App/useUser';
 
 const TrackSelector: React.FC = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -8,13 +9,34 @@ const TrackSelector: React.FC = () => {
     const [api, setApi] = useState<AlphaTabApi | null>(null);
     const [tracks, setTracks] = useState<Track[]>([]);
     const [loading, setLoading] = useState(true);
+    const [tabFilePath, setTabFilePath] = useState<string | null>(null);
+    const { user } = useUser();
+
+
+    useEffect(() => {
+        if (user && user.tabs && user.tabs.length > 0) {
+            const fileURL = user.tabs[0].fileURL;
+            setTabFilePath(fileURL);
+        }
+    }, [user]);
 
     useEffect(() => {
         if (mainRef.current) {
-            const settings = {
-                file: "https://www2.alphatab.net/files/canon.gp",
-            };
-            const alphaTabApi = new AlphaTabApi(mainRef.current, settings);
+            // const settings = {
+            //     file: "https://www2.alphatab.net/files/canon.gp",
+            // };
+            const alphaTabApi = new AlphaTabApi(mainRef.current, {
+                core: {
+                    file: tabFilePath,
+                    fontDirectory: '/font/'
+                },
+                player: {
+                    enablePlayer: true,
+                    enableCursor: true,
+                    enableUserInteraction: true,
+                    soundFont: '/soundfont/sonivox.sf2'
+                }
+            } as Settings);
             setApi(alphaTabApi);
 
             alphaTabApi.renderStarted.on(() => {
@@ -33,7 +55,7 @@ const TrackSelector: React.FC = () => {
                 alphaTabApi.destroy();
             };
         }
-    }, []);
+    }, [tabFilePath]);
 
     const handleTrackClick = (track: Track) => {
         if (api) {

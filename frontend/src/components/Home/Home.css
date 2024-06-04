@@ -8,7 +8,7 @@
 
 .at-cursor-bar {
     /* Defines the color of the bar background when a bar is played */
-    background: rgba(255, 242, 0, 0.25);
+    background: rgba(0, 255, 51, 0.25);
 }
 
 .at-selection div {
@@ -43,6 +43,52 @@
     stroke: #0078ff;
 }
 
-.hello {
+.alphaTab {
     width: 100%;
 }
+
+
+
+/* .at-wrap {
+    width: 80vw;
+    height: 80vh;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  .at-content {
+    position: relative;
+    overflow: hidden;
+    flex: 1 1 auto;
+  }
+  .at-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    max-width: 70px;
+    width: auto;
+    display: flex;
+    align-content: stretch;
+    z-index: 1001;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    background: #f7f7f7;
+  }
+  .at-viewport {
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+    left: 70px;
+    right: 0;
+    bottom: 0;
+    padding-right: 20px;
+  }
+  .at-footer {
+    flex: 0 0 auto;
+    background: #436d9d;
+    color: #fff;
+  } */

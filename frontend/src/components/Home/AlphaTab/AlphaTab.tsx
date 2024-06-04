@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AlphaTabApi, Score, Track, Settings } from '@coderline/alphatab';
 import { Tab } from '../../../../interfaces/tab';
-import './TrackSelector.css';
+import './AlphaTab.css';
 import useUser from '../../App/useUser';
 
-const TrackSelector: React.FC = () => {
+const AlphaTab: React.FC = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const mainRef = useRef<HTMLDivElement>(null);
     const [api, setApi] = useState<AlphaTabApi | null>(null);
@@ -116,4 +116,4 @@ const TrackSelector: React.FC = () => {
     );
 };
 
-export default TrackSelector;
+export default AlphaTab;

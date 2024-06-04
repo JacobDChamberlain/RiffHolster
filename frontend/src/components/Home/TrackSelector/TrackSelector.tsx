@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AlphaTabApi, Score, Track, Settings } from '@coderline/alphatab';
+import { Tab } from '../../../../interfaces/tab';
 import './TrackSelector.css';
 import useUser from '../../App/useUser';
 
@@ -20,15 +21,8 @@ const TrackSelector: React.FC = () => {
         }
     }, [user]);
 
-    // useEffect(() => {
-    //     console.log(api?.score?.tracks)
-    // }, [tabFilePath])
-
     useEffect(() => {
         if (mainRef.current) {
-            // const settings = {
-            //     file: "https://www2.alphatab.net/files/canon.gp",
-            // };
             const alphaTabApi = new AlphaTabApi(mainRef.current, {
                 core: {
                     file: tabFilePath,
@@ -67,6 +61,14 @@ const TrackSelector: React.FC = () => {
         }
     };
 
+    function playPause() {
+        api?.playPause();
+    }
+
+    const updateTabFilePath = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setTabFilePath( e.target.value );
+    };
+
     return (
         <div className="at-wrap" ref={wrapperRef}>
             {loading && (
@@ -76,6 +78,12 @@ const TrackSelector: React.FC = () => {
                     </div>
                 </div>
             )}
+            <button className='play-button' onClick={() => playPause()}>Play/Pause</button>
+            <select className='song-select' value={tabFilePath || ''} onChange={updateTabFilePath}>
+                {user.tabs.map((tab: Tab) => (
+                    <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
+                ))}
+            </select>
             <div className="at-content">
                 <div className="at-sidebar">
                     <div className="at-sidebar-content">

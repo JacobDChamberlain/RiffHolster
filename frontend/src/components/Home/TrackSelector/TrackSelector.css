@@ -16,6 +16,16 @@
     position: relative;
 }
 
+.song-select {
+    width: 170px;
+    align-self: center;
+}
+
+.play-button {
+    width: 170px;
+    align-self: center;
+}
+
 .at-content {
     position: relative;
     overflow: hidden;

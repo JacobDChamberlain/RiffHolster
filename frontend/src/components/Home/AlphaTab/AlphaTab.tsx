@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AlphaTabApi, Score, Track, Settings } from '@coderline/alphatab';
 import { Tab } from '../../../../interfaces/tab';
-import './AlphaTab.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGuitar } from '@fortawesome/free-solid-svg-icons';
 import useUser from '../../App/useUser';
+import './AlphaTab.css';
+
 
 const AlphaTab: React.FC = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -95,7 +98,7 @@ const AlphaTab: React.FC = () => {
                                     onClick={() => handleTrackClick(track)}
                                 >
                                     <div className="at-track-icon">
-                                        <i className="fas fa-guitar"></i>
+                                        <FontAwesomeIcon icon={faGuitar} />
                                     </div>
                                     <div className="at-track-details">
                                         <div className="at-track-name">{track.name}</div>

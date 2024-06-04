@@ -77,16 +77,19 @@ const AlphaTab: React.FC = () => {
             {loading && (
                 <div className="at-overlay">
                     <div className="at-overlay-content">
-                        Music sheet is loading
+                        Loading Tabs...
                     </div>
                 </div>
             )}
-            <button className='play-button' onClick={() => playPause()}>Play/Pause</button>
-            <select className='song-select' value={tabFilePath || ''} onChange={updateTabFilePath}>
-                {user.tabs.map((tab: Tab) => (
-                    <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
-                ))}
-            </select>
+            <div className='temp-controls'>
+                <button className='play-button' onClick={() => playPause()}>Play/Pause</button>
+                <select className='song-select' value={tabFilePath || ''} onChange={updateTabFilePath}>
+                    {user.tabs.map((tab: Tab) => (
+                        <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
+                    ))}
+                </select>
+            </div>
+
             <div className="at-content">
                 <div className="at-sidebar">
                     <div className="at-sidebar-content">

@@ -16,15 +16,27 @@
     position: relative;
 }
 
+
+.temp-controls {
+    background: #f7f7f7;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: center;
+}
 .song-select {
     width: 170px;
     align-self: center;
+    cursor: pointer;
 }
-
+.song-select:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
 .play-button {
     width: 170px;
     align-self: center;
+    cursor: pointer;
 }
+
 
 .at-content {
     position: relative;

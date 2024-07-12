@@ -18,8 +18,9 @@ function App() {
 
   return (
     <div className='app-wrapper'>
-      <NavigationBar user={ user } removeToken={ removeToken } removeUser={ removeUser } />
+
       <BrowserRouter>
+        <NavigationBar user={ user } removeToken={ removeToken } removeUser={ removeUser } />
         <Routes>
           <Route path='/' Component={ Home } />
           {/* <Route path='/tabs' Component={  } />

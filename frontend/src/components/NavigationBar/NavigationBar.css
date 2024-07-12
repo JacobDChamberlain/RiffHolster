@@ -6,3 +6,20 @@
     align-items: center;
     border-bottom: 1px solid black;
 }
+
+.nav-link {
+    border: none;
+    border-radius: 40px;
+    background-color: rgb(123, 190, 235);
+    color: white;
+    font-size: 15px;
+    margin: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: Arial;
+    font-size: 15px;
+}
+.nav-link:hover {
+    background-color: rgb(40, 154, 231);
+}

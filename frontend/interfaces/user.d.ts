@@ -31,7 +31,3 @@ interface NavigationBarProps {
     removeToken: () => void;
     removeUser: () => void;
 }
-
-
-
-//* ------------ Tab Interfaces: ------------

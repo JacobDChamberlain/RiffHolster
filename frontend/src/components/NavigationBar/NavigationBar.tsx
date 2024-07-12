@@ -7,6 +7,7 @@ export default function NavigationBar({ user, removeToken, removeUser }: Navigat
     return(
         <div className='navigation-bar-wrapper'>
             <h2>Welcome, { user.username }!</h2>
+            <button>Upload</button>
             <Logout removeToken={ removeToken } removeUser={ removeUser } />
         </div>
     )

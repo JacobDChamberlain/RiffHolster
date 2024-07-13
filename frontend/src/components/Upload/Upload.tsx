@@ -53,10 +53,10 @@ export default function Upload() {
             return;
         }
 
-        const tab: Tab = uploadResponse.tab;
-        console.log( `----upload tab response: ${tab} ----` );
+        const tab: Tab = uploadResponse;
+
         if ( tab !== undefined && tab !== null ) {
-            console.log(`***** Tab ${tab} Successfully Uploaded!!! *****`)
+            console.log(`***** Tab ${tab.name} Successfully Uploaded!!! *****`)
         }
 
         setErrors([]); //? Should I navigate to a page with the current tab loaded?

@@ -28,18 +28,19 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPaus
                     <span className="at-song-artist">{artist}</span>
                 </div>
                 <div className="at-song-position">00:00 / 00:00</div>
-                <div className="at-controls-right">
+            </div>
+            <div className="at-controls-right">
                     <a className="btn toggle at-count-in">
-                        <FontAwesomeIcon icon={faHourglassHalf} />
+                        <FontAwesomeIcon className='fa' icon={faHourglassHalf} />
                     </a>
                     <a className="btn at-metronome">
-                        <FontAwesomeIcon icon={faEdit} />
+                        <FontAwesomeIcon className='fa' icon={faEdit} />
                     </a>
                     <a className="btn at-loop">
-                        <FontAwesomeIcon icon={faRetweet} />
+                        <FontAwesomeIcon className='fa' icon={faRetweet} />
                     </a>
                     <a className="btn at-print">
-                        <FontAwesomeIcon icon={faPrint} />
+                        <FontAwesomeIcon className='fa' icon={faPrint} />
                     </a>
                     <div className="at-zoom">
                         <FontAwesomeIcon icon={faSearch} />
@@ -62,7 +63,6 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPaus
                         </select>
                     </div>
                 </div>
-            </div>
         </div>
     )
 }

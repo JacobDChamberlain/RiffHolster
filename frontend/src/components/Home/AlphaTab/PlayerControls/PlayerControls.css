@@ -41,7 +41,8 @@
     text-decoration: none;
 }
 
-.at-controls .btn i {
+/** this may not be doing anything, and may not be needed */
+.at-controls .btn .fa {
     vertical-align: top;
 }
 

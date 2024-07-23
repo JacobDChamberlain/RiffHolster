@@ -78,7 +78,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPaus
                 <a onClick={() => playPause()} className='btn at-player-play-pause disabled'>
                     <FontAwesomeIcon icon={faPlay} />
                 </a>
-                <span className='at-player-progress'>0%</span>
+                {/* <span className='at-player-progress'>0%</span> */}
                 <div className="at-song-info">
                     <span className="at-song-title">{title}</span> -
                     <span className="at-song-artist">{artist}</span>
@@ -101,7 +101,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPaus
                     <a className="btn at-print" onClick={handlePrint}>
                         <FontAwesomeIcon className='fa' icon={faPrint} />
                     </a>
-                    <div className="at-zoom">
+                    {/* <div className="at-zoom">
                         <FontAwesomeIcon icon={faSearch} />
                         <select>
                             <option value="25">25%</option>
@@ -120,7 +120,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPaus
                             <option value="horizontal">Horizontal</option>
                             <option value="page" selected>Page</option>
                         </select>
-                    </div>
+                    </div> */}
                 </div>
         </div>
     )

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGuitar } from '@fortawesome/free-solid-svg-icons';
 import useUser from '../../App/useUser';
 import './AlphaTab.css';
+import PlayerControls from './PlayerControls/PlayerControls';
 
 
 const AlphaTab: React.FC = () => {
@@ -12,6 +13,8 @@ const AlphaTab: React.FC = () => {
     const mainRef = useRef<HTMLDivElement>(null);
     const [api, setApi] = useState<AlphaTabApi | null>(null);
     const [tracks, setTracks] = useState<Track[]>([]);
+    const [title, setTitle] = useState('');
+    const [artist, setArtist] = useState('');
     const [loading, setLoading] = useState(true);
     const [tabFilePath, setTabFilePath] = useState<string | null>(null);
     const { user } = useUser();
@@ -50,6 +53,8 @@ const AlphaTab: React.FC = () => {
 
             alphaTabApi.scoreLoaded.on((score: Score) => {
                 setTracks(score.tracks);
+                setTitle(score.title);
+                setArtist(score.artist);
             });
 
             return () => {
@@ -82,7 +87,6 @@ const AlphaTab: React.FC = () => {
                 </div>
             )}
             <div className='temp-controls'>
-                <button className='play-button' onClick={() => playPause()}>Play/Pause</button>
                 <select className='song-select' value={tabFilePath || ''} onChange={updateTabFilePath}>
                     {user.tabs.map((tab: Tab) => (
                         <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
@@ -115,9 +119,7 @@ const AlphaTab: React.FC = () => {
                     <div className="at-main" ref={mainRef}></div>
                 </div>
             </div>
-            <div className="at-controls">
-                Player controls will go here
-            </div>
+            {api && <PlayerControls title={title} artist={artist} playPause={playPause} api={api} />}
         </div>
     );
 };

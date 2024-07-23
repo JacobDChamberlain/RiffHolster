@@ -13,6 +13,8 @@ const AlphaTab: React.FC = () => {
     const mainRef = useRef<HTMLDivElement>(null);
     const [api, setApi] = useState<AlphaTabApi | null>(null);
     const [tracks, setTracks] = useState<Track[]>([]);
+    const [title, setTitle] = useState('');
+    const [artist, setArtist] = useState('');
     const [loading, setLoading] = useState(true);
     const [tabFilePath, setTabFilePath] = useState<string | null>(null);
     const { user } = useUser();
@@ -51,6 +53,8 @@ const AlphaTab: React.FC = () => {
 
             alphaTabApi.scoreLoaded.on((score: Score) => {
                 setTracks(score.tracks);
+                setTitle(score.title);
+                setArtist(score.artist);
             });
 
             return () => {
@@ -116,7 +120,7 @@ const AlphaTab: React.FC = () => {
                     <div className="at-main" ref={mainRef}></div>
                 </div>
             </div>
-            <PlayerControls />
+            <PlayerControls title={title} artist={artist} />
         </div>
     );
 };

@@ -2,8 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward, faPlay, faHourglassHalf, faEdit, faRetweet, faPrint, faSearch } from '@fortawesome/free-solid-svg-icons';
 import './PlayerControls.css';
 
+interface PlayerControlsProps {
+    title: string;
+    artist: string;
+}
+
+
 //* pass in alphaTab api to enable functionality
-export default function PlayerControls() {
+const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist }) => {
     //* add functionality here
 
     return (
@@ -17,8 +23,8 @@ export default function PlayerControls() {
                 </a>
                 <span className='at-player-progress'>0%</span>
                 <div className="at-song-info">
-                    <span className="at-song-title"></span> -
-                    <span className="at-song-artist"></span>
+                    <span className="at-song-title">{title}</span> -
+                    <span className="at-song-artist">{artist}</span>
                 </div>
                 <div className="at-song-position">00:00 / 00:00</div>
                 <div className="at-controls-right">
@@ -36,16 +42,16 @@ export default function PlayerControls() {
                     </a>
                     <div className="at-zoom">
                         <FontAwesomeIcon icon={faSearch} />
-                        <select>
-                        <option value="25">25%</option>
-                        <option value="50">50%</option>
-                        <option value="75">75%</option>
-                        <option value="90">90%</option>
-                        <option value="100" selected>100%</option>
-                        <option value="110">110%</option>
-                        <option value="125">125%</option>
-                        <option value="150">150%</option>
-                        <option value="200">200%</option>
+                        <select defaultValue={'100%'}>
+                            <option value="25">25%</option>
+                            <option value="50">50%</option>
+                            <option value="75">75%</option>
+                            <option value="90">90%</option>
+                            <option selected value="100">100%</option>
+                            <option value="110">110%</option>
+                            <option value="125">125%</option>
+                            <option value="150">150%</option>
+                            <option value="200">200%</option>
                         </select>
                     </div>
                     <div className="at-layout">
@@ -59,3 +65,5 @@ export default function PlayerControls() {
         </div>
     )
 }
+
+export default PlayerControls;

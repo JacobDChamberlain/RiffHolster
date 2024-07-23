@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AlphaTabApi, Score, Track, Settings } from '@coderline/alphatab';
 import { Tab } from '../../../../interfaces/tab';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGuitar, faStepBackward, faPlay, faHourglassHalf, faEdit, faRetweet, faPrint, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faGuitar } from '@fortawesome/free-solid-svg-icons';
 import useUser from '../../App/useUser';
 import './AlphaTab.css';
+import PlayerControls from './PlayerControls/PlayerControls';
 
 
 const AlphaTab: React.FC = () => {
@@ -115,56 +116,7 @@ const AlphaTab: React.FC = () => {
                     <div className="at-main" ref={mainRef}></div>
                 </div>
             </div>
-            <div className="at-controls">
-                <div className='at-controls-left'>
-                    <a className='btn at-player-stop disabled'>
-                        <FontAwesomeIcon icon={faStepBackward} />
-                    </a>
-                    <a className='btn at-player-play-pause disabled'>
-                        <FontAwesomeIcon icon={faPlay} />
-                    </a>
-                    <span className='at-player-progress'>0%</span>
-                    <div className="at-song-info">
-                        <span className="at-song-title"></span> -
-                        <span className="at-song-artist"></span>
-                    </div>
-                    <div className="at-song-position">00:00 / 00:00</div>
-                    <div className="at-controls-right">
-                        <a className="btn toggle at-count-in">
-                            <FontAwesomeIcon icon={faHourglassHalf} />
-                        </a>
-                        <a className="btn at-metronome">
-                            <FontAwesomeIcon icon={faEdit} />
-                        </a>
-                        <a className="btn at-loop">
-                            <FontAwesomeIcon icon={faRetweet} />
-                        </a>
-                        <a className="btn at-print">
-                            <FontAwesomeIcon icon={faPrint} />
-                        </a>
-                        <div className="at-zoom">
-                            <FontAwesomeIcon icon={faSearch} />
-                            <select>
-                            <option value="25">25%</option>
-                            <option value="50">50%</option>
-                            <option value="75">75%</option>
-                            <option value="90">90%</option>
-                            <option value="100" selected>100%</option>
-                            <option value="110">110%</option>
-                            <option value="125">125%</option>
-                            <option value="150">150%</option>
-                            <option value="200">200%</option>
-                            </select>
-                        </div>
-                        <div className="at-layout">
-                            <select>
-                            <option value="horizontal">Horizontal</option>
-                            <option value="page" selected>Page</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PlayerControls />
         </div>
     );
 };

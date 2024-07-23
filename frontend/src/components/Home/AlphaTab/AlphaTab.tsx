@@ -119,7 +119,7 @@ const AlphaTab: React.FC = () => {
                     <div className="at-main" ref={mainRef}></div>
                 </div>
             </div>
-            <PlayerControls title={title} artist={artist} playPause={playPause} />
+            {api && <PlayerControls title={title} artist={artist} playPause={playPause} api={api} />}
         </div>
     );
 };

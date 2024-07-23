@@ -2,24 +2,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward, faPlay, faHourglassHalf, faEdit, faRetweet, faPrint, faSearch } from '@fortawesome/free-solid-svg-icons';
 import './PlayerControls.css';
 import { useState } from 'react';
+import { AlphaTabApi } from '@coderline/alphatab';
 
 interface PlayerControlsProps {
     title: string;
     artist: string;
     playPause: () => void;
+    api: AlphaTabApi;
 }
 
 
 //* pass in alphaTab api to enable functionality
-const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPause }) => {
+const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPause, api }) => {
     //* add functionality here
     const [countIn, setCountIn] = useState(false);
+    const [metronome, setMetronome] = useState(false);
 
     const toggleCountIn = () => {
         const newState = !countIn;
         setCountIn(newState);
-        // api.countInVolume = newState ? 1 : 0;
+        api.countInVolume = newState ? 1 : 0;
     }
+
+    const toggleMetronome = () => {
+        const newState = !metronome;
+        setMetronome(newState);
+        api.metronomeVolume = newState ? 1 : 0;
+    }
+
 
     return (
         <div className="at-controls">
@@ -42,7 +52,8 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPaus
                         onClick={toggleCountIn}>
                         <FontAwesomeIcon className='fa' icon={faHourglassHalf} />
                     </a>
-                    <a className="btn at-metronome">
+                    <a className={`btn at-metronome ${ metronome ? 'active' : ''}`}
+                        onClick={toggleMetronome}>
                         <FontAwesomeIcon className='fa' icon={faEdit} />
                     </a>
                     <a className="btn at-loop">

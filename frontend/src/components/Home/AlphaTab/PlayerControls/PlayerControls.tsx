@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward, faPlay, faHourglassHalf, faEdit, faRetweet, faPrint, faSearch } from '@fortawesome/free-solid-svg-icons';
 import './PlayerControls.css';
+import { useState } from 'react';
 
 interface PlayerControlsProps {
     title: string;
@@ -12,6 +13,13 @@ interface PlayerControlsProps {
 //* pass in alphaTab api to enable functionality
 const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPause }) => {
     //* add functionality here
+    const [countIn, setCountIn] = useState(false);
+
+    const toggleCountIn = () => {
+        const newState = !countIn;
+        setCountIn(newState);
+        // api.countInVolume = newState ? 1 : 0;
+    }
 
     return (
         <div className="at-controls">
@@ -30,7 +38,8 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPaus
                 <div className="at-song-position">00:00 / 00:00</div>
             </div>
             <div className="at-controls-right">
-                    <a className="btn toggle at-count-in">
+                    <a className={`btn toggle at-count-in ${ countIn ? 'active' : ''}`}
+                        onClick={toggleCountIn}>
                         <FontAwesomeIcon className='fa' icon={faHourglassHalf} />
                     </a>
                     <a className="btn at-metronome">

@@ -87,7 +87,6 @@ const AlphaTab: React.FC = () => {
                 </div>
             )}
             <div className='temp-controls'>
-                <button className='play-button' onClick={() => playPause()}>Play/Pause</button>
                 <select className='song-select' value={tabFilePath || ''} onChange={updateTabFilePath}>
                     {user.tabs.map((tab: Tab) => (
                         <option key={tab.id} value={tab.fileURL}>{tab.name}</option>
@@ -120,7 +119,7 @@ const AlphaTab: React.FC = () => {
                     <div className="at-main" ref={mainRef}></div>
                 </div>
             </div>
-            <PlayerControls title={title} artist={artist} />
+            <PlayerControls title={title} artist={artist} playPause={playPause} />
         </div>
     );
 };

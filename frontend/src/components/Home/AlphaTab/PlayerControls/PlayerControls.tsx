@@ -5,11 +5,12 @@ import './PlayerControls.css';
 interface PlayerControlsProps {
     title: string;
     artist: string;
+    playPause: () => void;
 }
 
 
 //* pass in alphaTab api to enable functionality
-const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist }) => {
+const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist, playPause }) => {
     //* add functionality here
 
     return (
@@ -18,7 +19,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ title, artist }) => {
                 <a className='btn at-player-stop disabled'>
                     <FontAwesomeIcon icon={faStepBackward} />
                 </a>
-                <a className='btn at-player-play-pause disabled'>
+                <a onClick={() => playPause()} className='btn at-player-play-pause disabled'>
                     <FontAwesomeIcon icon={faPlay} />
                 </a>
                 <span className='at-player-progress'>0%</span>
